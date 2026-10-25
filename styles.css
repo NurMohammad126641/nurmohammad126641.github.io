@@ -122,6 +122,28 @@ kbd { font-size: 11px; padding: 2px 6px; border-radius: 6px; border: 1px solid v
 @keyframes bob { 50% { transform: translateY(-10px); } }
 .hero-copy .eyebrow { margin-bottom: 16px; }
 .hero h1 { font-size: clamp(40px, 5.4vw, 66px); font-weight: 800; }
+
+/* Name: colour clouds drifting inside the letters (CSS only, no video) */
+:root { --neb-base-a: #7dd3fc; --neb-base-b: #818cf8; --neb-hi: #ffffff; }
+[data-theme="light"] { --neb-base-a: #0e7490; --neb-base-b: #4338ca; --neb-hi: #1e1b4b; }
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+  .hero h1 {
+    background:
+      radial-gradient(circle at 20% 40%, var(--c1) 0, transparent 30%),
+      radial-gradient(circle at 70% 60%, var(--c3) 0, transparent 32%),
+      radial-gradient(circle at 45% 30%, var(--neb-hi) 0, transparent 22%),
+      radial-gradient(circle at 85% 25%, var(--c2) 0, transparent 30%),
+      linear-gradient(120deg, var(--neb-base-a), var(--neb-base-b));
+    background-size: 220% 220%, 240% 240%, 200% 200%, 260% 260%, 100% 100%;
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    animation: nebula 10s ease-in-out infinite alternate;
+  }
+}
+@keyframes nebula {
+  0% { background-position: 0% 0%, 100% 100%, 50% 0%, 0% 100%, 0 0; }
+  50% { background-position: 100% 50%, 0% 50%, 0% 100%, 100% 0%, 0 0; }
+  100% { background-position: 50% 100%, 50% 0%, 100% 50%, 50% 50%, 0 0; }
+}
 .tagline { font-size: clamp(22px, 2.4vw, 30px); font-weight: 700; line-height: 1.25; letter-spacing: -.01em; margin: 14px 0 0; max-width: 600px; }
 .lead { font-size: 18px; color: var(--ink-2); margin: 18px 0 28px; max-width: 580px; }
 .lead strong { color: var(--ink); }
@@ -368,6 +390,7 @@ kbd { font-size: 11px; padding: 2px 6px; border-radius: 6px; border: 1px solid v
   .js .reveal { opacity: 1; transform: none; transition: none; }
   .pipeline .dots, .caret { display: none; animation: none; }
   .bg-glow::before { animation: none; }
+  .hero h1 { animation: none; }
   .portrait, .float { animation: none; }
   .btn, .repo, .post { transition: none; }
 }
