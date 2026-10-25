@@ -221,10 +221,14 @@
     { re: /looker|data studio/, name: "Looker Studio", ev: ["KPI and fraud-detection dashboards at TallyKhata (+80% visibility)"] },
     { re: /bigquery/, name: "BigQuery", ev: ["Part of my data toolkit alongside PostgreSQL and MySQL"] },
     { re: /mysql/, name: "MySQL", ev: ["Live production data for payment investigations at TallyKhata"] },
-    { re: /database|\bdbs?\b|dbms/, name: "Databases", more: "metabase", ev: ["PostgreSQL in production: the Overdue Tracking Platform, a partitioned BI backend and a central data warehouse", "PostgreSQL and MySQL production data at TallyKhata", "BigQuery for analytics", "Schema design, indexing and query optimization"] },
+    { re: /database|\bdbs?\b|dbms|schema|indexing/, name: "Databases", more: "metabase", ev: ["PostgreSQL in production: the Overdue Tracking Platform, a partitioned BI backend and a central data warehouse", "PostgreSQL and MySQL production data at TallyKhata", "BigQuery for analytics", "Schema design, indexing and query optimization"] },
     { re: /docker|containers?\b/, name: "Docker", ev: ["My open-source projects ship with Docker; CI runs them against a real PostgreSQL service"] },
     { re: /\bgit\b|github actions|ci\/cd|\bci\b|devops/, name: "Git & CI/CD", ev: ["GitHub Actions on every public repo: lint, tests, secret scanning", "CI builds and deploys my live demo dashboards"] },
-    { re: /selenium|playwright|scrap\w*|\bbots?\b|web automation/, name: "Browser automation", ev: ["sms-balance-monitor: a Selenium bot handling OTP and pop-ups", "API and load testing with Postman, JMeter and Selenium at TallyKhata"] },
+    { re: /chart\.?js/, name: "Chart.js", covers: "JavaScript & Next.js", ev: ["The live payments-ops-monitoring dashboard is built with Chart.js, and CI rebuilds it on every push"] },
+    { re: /google sheets|sheets api|gsheets/, name: "Google Sheets API", covers: "REST APIs", ev: ["KPI and fraud-detection dashboards at TallyKhata used the Google Sheets API with Python and SQL (+80% visibility)"] },
+    { re: /fraud/, name: "Fraud monitoring", ev: ["Built fraud-detection dashboards on live production data at TallyKhata", "Real-time alerts for service health and financial thresholds (−40% downtime)"] },
+    { re: /beautiful ?soup|bs4|openpyxl|gunicorn|middleware|sessions?\b|caching|cache\b|\bauth\w*/, name: "Python & Django toolkit", more: "overdue", ev: ["Secure authentication on the Overdue Tracking Platform (Django)", "Django middleware, sessions and caching, with Gunicorn and Docker for deployment", "BeautifulSoup for web scraping and OpenPyXL for Excel files in my Python automation"] },
+    { re: /selenium|playwright|scrap\w*|\bbots?\b|web automation|headless/, name: "Browser automation", ev: ["sms-balance-monitor: a Selenium bot handling OTP and pop-ups", "API and load testing with Postman, JMeter and Selenium at TallyKhata"] },
     { re: /\btest(s|ing)?\b|\bqa\b|postman|jmeter/, name: "Testing", ev: ["API and load testing with Postman, JMeter and Selenium at TallyKhata", "Automated tests in CI on every public repo"] },
     { re: /n8n|workflow automation/, name: "n8n", ev: ["Daily management reports and real-time system alerts at Padakhep"] },
     { re: /pandas|numpy/, name: "Pandas", more: "report", ev: ["Report automation and the redmine-issue-reporter project"] },
@@ -254,11 +258,14 @@
   const CANON = { aws: "AWS", gcp: "GCP", k8s: "Kubernetes", dbt: "dbt", fastapi: "FastAPI", pyspark: "PySpark", nosql: "NoSQL", mongodb: "MongoDB", mongo: "MongoDB", langchain: "LangChain", llamaindex: "LlamaIndex", crewai: "CrewAI", autogen: "AutoGen", langgraph: "LangGraph", pytorch: "PyTorch", tensorflow: "TensorFlow", sklearn: "scikit-learn", scikit: "scikit-learn", nlp: "NLP", dynamodb: "DynamoDB" };
   const pretty = (w) => CANON[w.replace(/\s/g, "")] || w.replace(/\b\w/g, (c) => c.toUpperCase());
   const STACK = `<p>My main tools:</p>${listify([
-    "<b>Backend</b>: Python, Django &amp; DRF, Celery, Redis, REST APIs",
-    "<b>Data</b>: PostgreSQL, MySQL, BigQuery, Pandas, ETL/ELT &amp; warehousing",
-    "<b>AI &amp; automation</b>: Gemini API &amp; LLMs, agentic workflows, n8n, Selenium &amp; Playwright",
-    "<b>BI</b>: Power BI, Metabase, Looker Studio, Excel &amp; Power Query",
-    "<b>DevOps</b>: Docker, Git, GitHub Actions, Linux",
+    "<b>Programming &amp; Backend</b>: Python, SQL, Django, Django ORM, JavaScript, REST APIs, auth, middleware, sessions, caching",
+    "<b>Databases &amp; Warehousing</b>: PostgreSQL, MySQL, BigQuery, Redis, query optimization, indexing, schema design",
+    "<b>Data Engineering &amp; ETL</b>: ETL/ELT pipelines, data warehousing, Pandas, OpenPyXL, data validation, Google Sheets API",
+    "<b>AI Integration &amp; Agents</b>: Gemini API, LLM integration, agentic workflows, n8n",
+    "<b>Automation &amp; Web Scraping</b>: Python automation, multithreading, Selenium, Playwright, BeautifulSoup, headless browsers",
+    "<b>BI &amp; Visualization</b>: Power BI, Metabase, Looker Studio, Chart.js",
+    "<b>DevOps &amp; Testing</b>: Docker, Gunicorn, Git, GitHub, Postman, JMeter",
+    "<b>Domain</b>: fintech, digital payments, microfinance MIS, fraud monitoring",
   ])}<p>Ask about any one of them and I'll show where I used it.</p>`;
   const reachMe = () => `${a("mailto:" + EMAIL, EMAIL)} or ${a(WA, "WhatsApp")}`;
 
@@ -354,7 +361,8 @@
     if (has(/\b(impact|biggest|proud|achievements?|accomplish\w*|results?|numbers|metrics?|largest|scale|how (big|much|many)|datasets?)\b/)) return one("get_projects", "impact", `domain="impact"`);
 
     // Skills: every one the question names, in the order asked (up to 3 tool calls).
-    const found = SKILLS.map((s) => ({ s, at: q.search(s.re) })).filter((x) => x.at >= 0).sort((x, y) => x.at - y.at).slice(0, 3);
+    let found = SKILLS.map((s) => ({ s, at: q.search(s.re) })).filter((x) => x.at >= 0);
+    found = found.filter((x) => !found.some((y) => y.s.covers === x.s.name)).sort((x, y) => x.at - y.at).slice(0, 3);
     if (found.length) return { calls: found.map(({ s }) => ({ tool: "find_evidence", arg: s, argText: `skill="${s.name}"` })) };
     for (const n of NEAR) { const m = q.match(n.re); if (m) { const name = pretty(m[0].trim()); return one("find_evidence", { name, say: n.say }, `skill="${name}"`); } }
     // "Do you know X?" for something not in my profile: check, and say so honestly.
