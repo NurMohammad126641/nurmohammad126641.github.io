@@ -252,8 +252,8 @@
     { re: /fastapi|flask|spring|laravel/, say: "I build my APIs with Django REST Framework, so API design, login security and background jobs are familiar. I haven't used this one in a real project yet." },
     { re: /snowflake|redshift|\bdbt\b|synapse/, say: "Not yet. I build data warehouses on PostgreSQL (one is in progress now) and use BigQuery." },
     { re: /mongo\w*|nosql|cassandra|dynamo\w*/, say: "My real projects use SQL databases (PostgreSQL and MySQL), plus Redis for job queues." },
-    { re: /langchain|llama.?index|crewai|autogen|langgraph/, say: "I build agents directly with the Gemini API (function calling), without a framework. I also write about RAG and AI agents on LinkedIn." },
-    { re: /tensorflow|pytorch|keras|scikit|sklearn|deep learning|computer vision|\bnlp\b/, say: "I studied machine learning with Python at BASIS (BITM). My real AI work is with large language models: Gemini function calling and agentic workflows. I haven't used this one in a real project yet." },
+    { re: /langchain|llama.?index|crewai|autogen|langgraph/, say: "I build agents directly with LLM APIs (function calling), without a framework. I also write about RAG and AI agents on LinkedIn." },
+    { re: /tensorflow|pytorch|keras|scikit|sklearn|deep learning|computer vision|\bnlp\b/, say: "I studied machine learning with Python at BASIS (BITM). My real AI work is with large language models: function calling and agentic workflows. I haven't used this one in a real project yet." },
   ];
   const CANON = { aws: "AWS", gcp: "GCP", k8s: "Kubernetes", dbt: "dbt", fastapi: "FastAPI", pyspark: "PySpark", nosql: "NoSQL", mongodb: "MongoDB", mongo: "MongoDB", langchain: "LangChain", llamaindex: "LlamaIndex", crewai: "CrewAI", autogen: "AutoGen", langgraph: "LangGraph", pytorch: "PyTorch", tensorflow: "TensorFlow", sklearn: "scikit-learn", scikit: "scikit-learn", nlp: "NLP", dynamodb: "DynamoDB" };
   const pretty = (w) => CANON[w.replace(/\s/g, "")] || w.replace(/\b\w/g, (c) => c.toUpperCase());
@@ -261,7 +261,7 @@
     "<b>Programming &amp; Backend</b>: Python, SQL, Django, Django ORM, JavaScript, REST APIs, auth, middleware, sessions, caching",
     "<b>Databases &amp; Warehousing</b>: PostgreSQL, MySQL, BigQuery, Redis, query optimization, indexing, schema design",
     "<b>Data Engineering &amp; ETL</b>: ETL/ELT pipelines, data warehousing, Pandas, OpenPyXL, data validation, Google Sheets API",
-    "<b>AI Integration &amp; Agents</b>: Gemini API, LLM integration, agentic workflows, n8n",
+    "<b>AI Integration &amp; Agents</b>: LLM APIs, LLM integration, agentic workflows, n8n",
     "<b>Automation &amp; Web Scraping</b>: Python automation, multithreading, Selenium, Playwright, BeautifulSoup, headless browsers",
     "<b>BI &amp; Visualization</b>: Power BI, Metabase, Looker Studio, Chart.js",
     "<b>DevOps &amp; Testing</b>: Docker, Gunicorn, Git, GitHub, Postman, JMeter",
@@ -343,7 +343,7 @@
         "I pick the right tool for it. For example, <code>find_evidence</code> checks a skill.",
         "The tool gets real data from Nur's profile.",
         "I answer using only that data, so I never make things up.",
-      ])}<p>To keep this demo fast and free, I pick tools with simple rules. In real projects, an AI model like Gemini picks the tools. Nur built the AI Analytics Chatbot this way.</p>`, note: "Explaining how I work, no lookup needed" };
+      ])}<p>To keep this demo fast and free, I pick tools with simple rules. In real projects, an LLM picks the tools. Nur built the AI Analytics Chatbot this way.</p>`, note: "Explaining how I work, no lookup needed" };
 
     if (has(/\b(interviews?|schedule|set up a call|book a call|meet|work together|collaborat\w*|(can|could) (i|we) work with you)\b/)) return one("get_contact", "interview", `topic="interview"`);
     if (has(/\b(salar\w*|ctc|compensation|expected (pay|package)|notice period|notice|start date|when can you (start|join)|join (immediately|us|soon)|immediate(ly)? join\w*|availab\w*|remote|on-?site|hybrid|relocat\w*|visa)\b/)) return one("get_contact", "hiring", `topic="hiring"`);
