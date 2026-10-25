@@ -270,7 +270,7 @@
           "<b>I care about getting it right.</b> Checks, automatic retries and tests keep my 730K-row report 100% accurate.",
         ])}<p>Want to talk? ${a("mailto:" + EMAIL, EMAIL)}</p>`
       : section === "stack" ? STACK
-      : section === "roles" ? `<p>I'm open to talking about <b>data engineering, BI, and Python backend and automation roles</b>, especially where AI is part of the work.</p><p>The easiest way to start: ${reachMe()}.</p>`
+      : section === "roles" ? `<p>I'm open to <b>new roles and projects</b> in data engineering, BI, and Python backend and automation, especially where AI is part of the work.</p><p>The easiest way to start: ${reachMe()}.</p>`
       : `<p>I'm Nur Mohammad Siddiq, a <b>Data, BI &amp; Automation Engineer</b> in Dhaka with 2.5+ years of experience. I build data, backend and AI systems that people use every day: Python, Django, PostgreSQL, data pipelines, dashboards and AI agents, mostly for microfinance and fintech.</p><p>Right now I'm building a central PostgreSQL data warehouse at Padakhep.</p>`,
     get_projects: (x) => typeof x === "string" ? listify(PROJECTS[x]) : DETAILS[x.name].html,
     get_experience: (company) => company === "all"
@@ -338,9 +338,9 @@
         "I answer using only that data, so I never make things up.",
       ])}<p>To keep this demo fast and free, I pick tools with simple rules. In real projects, an AI model like Gemini picks the tools. Nur built the AI Analytics Chatbot this way.</p>`, note: "Explaining how I work, no lookup needed" };
 
-    if (has(/\b(interviews?|schedule|set up a call|book a call|meet)\b/)) return one("get_contact", "interview", `topic="interview"`);
+    if (has(/\b(interviews?|schedule|set up a call|book a call|meet|work together|collaborat\w*|(can|could) (i|we) work with you)\b/)) return one("get_contact", "interview", `topic="interview"`);
     if (has(/\b(salar\w*|ctc|compensation|expected (pay|package)|notice period|notice|start date|when can you (start|join)|join (immediately|us|soon)|immediate(ly)? join\w*|availab\w*|remote|on-?site|hybrid|relocat\w*|visa)\b/)) return one("get_contact", "hiring", `topic="hiring"`);
-    if (has(/\b(why (should|would|hire)|strengths?|stand ?out|good fit|best (at|thing)|convince|different|unique|you excel|excel at|bring to)\b/)) return one("get_profile", "pitch", `section="pitch"`);
+    if (has(/\b(why (should|would|hire|work with|choose)|strengths?|stand ?out|good fit|best (at|thing)|convince|different|unique|you excel|excel at|bring to)\b/)) return one("get_profile", "pitch", `section="pitch"`);
     if (has(/\b(contact|e-?mail|reach|call|phone|mobile number|(your|contact) number|whatsapp|talk (to|with) (you|nur)|let s talk|hire you|get in touch|cv|resume|linkedin)\b/)) return one("get_contact", null, "");
     if (has(/\b(where (are|do) you (based|live|from|located)|based in|located|location|which city|from where)\b/)) return one("get_contact", "location", `topic="location"`);
     if (has(/\b(looking for|open to|kind of (role|job|position)|next role|job search|seeking|career goals?|what roles?)\b/)) return one("get_profile", "roles", `section="roles"`);
@@ -418,9 +418,9 @@
     const x = c.arg;
     switch (c.tool) {
       case "get_profile":
-        return x === "pitch" ? ["Finding reasons to hire Nur", "Found 3 reasons to hire Nur"]
+        return x === "pitch" ? ["Finding reasons to work with Nur", "Found 3 reasons to work with Nur"]
           : x === "stack" ? ["Looking up Nur's skills", "Found Nur's skills and tools"]
-          : x === "roles" ? ["Looking up the roles Nur wants", "Found the roles Nur is open to"]
+          : x === "roles" ? ["Looking up what Nur is open to", "Found what Nur is open to"]
           : ["Looking up Nur's profile", "Found Nur's profile"];
       case "get_projects":
         return typeof x === "string" ? [`Looking up Nur's ${AREA[x]}`, `Found Nur's ${AREA[x]}`]
@@ -479,7 +479,7 @@
     }
   }
 
-  const SUGGESTIONS = ["What do you do?", "How does this agent work?", "Show me your AI work", "What's your biggest impact?", "Django & PostgreSQL?", "Fintech experience?", "Why should we hire you?", "How can I contact you?"];
+  const SUGGESTIONS = ["What do you do?", "How does this agent work?", "Show me your AI work", "What's your biggest impact?", "Django & PostgreSQL?", "Fintech experience?", "Why work with you?", "How can I contact you?"];
   chips.innerHTML = SUGGESTIONS.map((s) => `<button type="button">${s}</button>`).join("");
   chips.addEventListener("click", (e) => { const b = e.target.closest("button"); if (b) ask(b.textContent); });
   log.addEventListener("click", (e) => { const b = e.target.closest(".inline-chips button"); if (b) ask(b.textContent); });
