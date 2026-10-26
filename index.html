@@ -236,7 +236,7 @@
             <div class="term-bar">
               <span class="dots3" aria-hidden="true"><i></i><i></i><i></i></span>
               <span class="term-title">nur-agent · function calling</span>
-              <span class="term-badge">runs in your browser</span>
+              <span class="term-badge">powered by Gemini</span>
             </div>
             <div class="term-log" id="agent-log" aria-live="polite"></div>
             <div class="chips" id="agent-chips" aria-label="Suggested questions"></div>
@@ -277,10 +277,9 @@
                 <li><code>get_contact(topic)</code><span>how to reach me, next steps</span></li>
               </ul>
               <p class="note">
-                How this demo works: to keep it fast and free, it picks tools with simple rules, not a paid AI
-                model. It can use several tools at once and remembers what you asked before. Every answer
-                comes only from real data, so it never makes things up. In real projects, an LLM picks the
-                tools.
+                How it works: Google Gemini reads your question and picks the tools (function calling). The
+                tools return real data from my profile, and Gemini answers only from that. If Gemini is busy,
+                a fast rule-based version answers instead. Questions are processed by Google.
               </p>
             </details>
           </aside>

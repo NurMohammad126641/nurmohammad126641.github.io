@@ -1,7 +1,10 @@
 // The chat window: shows each question, the tool calls behind the answer, then the answer.
 
+import { AGENT_API_URL } from "../config.js";
 import { $, $$, reduceMotion, sleep } from "../lib/dom.js";
 import { escapeHtml } from "../lib/html.js";
+import { renderMarkdown } from "../lib/markdown.js";
+import { toToolCall } from "./llm-tools.js";
 import { followUpFor, route } from "./router.js";
 import { reachMe, TOOLS } from "./tools.js";
 import { describeCall } from "./trace.js";
@@ -23,6 +26,31 @@ const step = (icon, text, code = "") =>
   `<div class="step"><span class="say"><i aria-hidden="true">${icon}</i>${text}</span>${code && `<code>${code}</code>`}</div>`;
 const codeOf = ({ tool, argText }) => `<span class="fn">${tool}</span>(${escapeHtml(argText)})`;
 
+function timeout(ms) {
+  if (AbortSignal.timeout) return AbortSignal.timeout(ms);
+  const controller = new AbortController();
+  setTimeout(() => controller.abort(), ms);
+  return controller.signal;
+}
+
+/** Ask the Gemini agent (via the Cloudflare Worker). Returns null if it's unavailable for any reason. */
+async function askGemini(question, history) {
+  if (!AGENT_API_URL) return null;
+  try {
+    const response = await fetch(`${AGENT_API_URL}/ask`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ question, history }),
+      signal: timeout(15000),
+    });
+    if (!response.ok) return null;
+    const data = await response.json();
+    return typeof data.answer === "string" && Array.isArray(data.calls) ? data : null;
+  } catch {
+    return null;
+  }
+}
+
 export function initChat() {
   const log = $("#agent-log");
   const form = $("#agent-form");
@@ -30,7 +58,8 @@ export function initChat() {
   const suggestions = $("#agent-chips");
 
   let busy = false;
-  let followUp = null;
+  let followUp = null; // rule-based mode: project a "tell me more" should open
+  const history = []; // Gemini mode: recent questions and answers, so follow-ups make sense
   let anchor = null; // latest question; long answers are read from their start
 
   const scrollLog = () => {
@@ -97,6 +126,27 @@ export function initChat() {
     const bot = addMessage("bot", "");
 
     try {
+      if (AGENT_API_URL) {
+        const started = performance.now();
+        bot.innerHTML = `<div class="trace working">${step("…", "Gemini is reading your question")}<span class="caret"></span></div>`;
+        const gemini = await askGemini(text, history.slice(-3));
+        if (gemini) {
+          history.push({ q: text, a: gemini.answer });
+          const calls = gemini.calls.map((c) => toToolCall(c.name, c.args)).filter(Boolean);
+          highlightTools(calls.map((c) => c.tool));
+          const seconds = ((performance.now() - started) / 1000).toFixed(1);
+          const timing = `<span class="ms"> · Gemini · ${seconds} s</span>`;
+          const steps = calls.length
+            ? calls.map((c, i) =>
+                step("✓", describeCall(c)[1], codeOf(c) + (i === calls.length - 1 ? timing : "")),
+              )
+            : [step("✓", "Answered by Gemini, no lookup needed", timing)];
+          bot.innerHTML = `<div class="trace">${steps.join("")}</div><div class="answer"></div>`;
+          await typeInto($(".answer", bot), renderMarkdown(gemini.answer));
+          return;
+        }
+      }
+
       const result = route(text, followUp);
 
       if (!result || result.reply) {

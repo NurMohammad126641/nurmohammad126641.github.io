@@ -6,6 +6,9 @@ export const TEL = "tel:+8801904271946";
 export const CV_URL = "assets/Nur-Mohammad-Siddiq-CV.pdf";
 export const WHATSAPP_URL = "https://wa.me/8801904271946?text=Hi%20Nur%2C%20I%20saw%20your%20portfolio";
 
+// Cloudflare Worker that runs the Gemini agent (see worker/). Empty = rule-based agent only.
+export const AGENT_API_URL = "https://nur-portfolio-agent.rabbins-eng.workers.dev";
+
 export const LINKS = {
   linkedin: "https://www.linkedin.com/in/nur-mohammad-siddiq-9a73931b6",
   github: "https://github.com/NurMohammad126641",

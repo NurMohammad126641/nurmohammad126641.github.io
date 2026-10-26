@@ -129,7 +129,7 @@ const HOW_I_WORK = `<p>Good question! Here's how I work:</p>${list([
   "I pick the right tool for it. For example, <code>find_evidence</code> checks a skill.",
   "The tool gets real data from Nur's profile.",
   "I answer using only that data, so I never make things up.",
-])}<p>To keep this demo fast and free, I pick tools with simple rules. In real projects, an LLM picks the tools. Nur built the AI Analytics Chatbot this way.</p>`;
+])}<p>Normally Google Gemini picks the tools, using function calling. Right now I'm in quick mode: simple rules pick them, so I still answer instantly when Gemini is busy.</p>`;
 
 // --- Routing -------------------------------------------------------------------------
 

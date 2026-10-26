@@ -1,0 +1,21 @@
+# Cloudflare Worker for the portfolio's AI agent.
+# The Gemini key is a secret set in the Cloudflare dashboard (GEMINI_API_KEY); it is never stored here.
+
+name = "nur-portfolio-agent"
+main = "src/index.js"
+compatibility_date = "2026-09-01"
+
+[vars]
+ALLOWED_ORIGINS = "https://nurmohammad126641.github.io,http://localhost:8770"
+GEMINI_MODEL = "gemini-3.5-flash-lite"
+GEMINI_THINKING = "minimal"
+GEMINI_API_STYLE = "generate"
+
+# 8 questions per minute per visitor.
+[[ratelimits]]
+name = "ASK_LIMITER"
+namespace_id = "1001"
+
+  [ratelimits.simple]
+  limit = 8
+  period = 60
