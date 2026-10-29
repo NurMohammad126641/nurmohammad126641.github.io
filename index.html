@@ -673,6 +673,45 @@
             >
             <span class="media-tag">Demo data</span>
           </div>
+          <!-- One summary per video (keyed by YouTube id); demo.js shows the one that's playing -->
+          <div class="demo-now" aria-live="polite">
+            <div data-about="76sRtxefyfA">
+              <p class="demo-now-title"><b>Full product tour</b> <small>5:52</small></p>
+              <p>One system for overdue-loan recovery, from the first field visit to court.</p>
+              <ul aria-label="Watch for">
+                <li>Role-based home screens</li>
+                <li>8-step legal ladder with one-click notices</li>
+                <li>Pages in under a second</li>
+              </ul>
+            </div>
+            <div data-about="bmRWBmnchiA" hidden>
+              <p class="demo-now-title"><b>On mobile</b> <small>2:38</small></p>
+              <p>The whole platform in a field officer's pocket, installed straight from the browser.</p>
+              <ul aria-label="Watch for">
+                <li>Loan cards, not tables</li>
+                <li>Visits saved in seconds</li>
+                <li>Photo proof, auto-stamped</li>
+              </ul>
+            </div>
+            <div data-about="M6PpXh8aGFY" hidden>
+              <p class="demo-now-title"><b>Reporting dashboard</b> <small>2:37</small></p>
+              <p>Every overdue number, from country to samity, in under half a second.</p>
+              <ul aria-label="Watch for">
+                <li>One filter bar drives every card</li>
+                <li>Drill down by program and region</li>
+                <li>A separate reporting warehouse</li>
+              </ul>
+            </div>
+            <div data-about="pxd4tlJWejA" hidden>
+              <p class="demo-now-title"><b>OD Monitor</b> <small>1:40</small></p>
+              <p>Who logged in, who visited, who collected, hour by hour.</p>
+              <ul aria-label="Watch for">
+                <li>Live staff pulse</li>
+                <li>Branch leaderboards</li>
+                <li>Managers see only their own team</li>
+              </ul>
+            </div>
+          </div>
           <nav class="demo-chapters" aria-label="Jump to a part of the full tour">
             <a href="https://youtu.be/76sRtxefyfA?t=17" data-yt data-title="OD Tracker 2.0 tour: sign-in"
               >Sign-in</a
@@ -1005,7 +1044,7 @@
                   Engineered and deployed a production-grade Overdue Tracking Platform using Django REST
                   Framework, PostgreSQL, Celery, and Redis, with secure authentication and REST API
                   integration—replacing manual Excel workflows across 406 branches and supporting 4,000+
-                  users.
+                  users. <a class="demo-link" href="#demo">Watch the demo</a>
                 </li>
                 <li>
                   Shipped an AI-powered analytics chatbot (Gemini, agentic workflows) inside the reporting

@@ -1,8 +1,9 @@
 // OD Tracker demo reel: the silent highlight loop plays only while it's on screen, and every demo link
 // (the full tour, a chapter or a short demo) plays from YouTube in the same frame, loaded only on tap.
+// The summary under the player switches to the video that's playing.
 
 import { $, $$, reduceMotion } from "../lib/dom.js";
-import { embedSrc } from "../lib/youtube.js";
+import { embedSrc, videoId } from "../lib/youtube.js";
 
 export function initDemo() {
   const reel = $("#demo");
@@ -19,6 +20,7 @@ export function initDemo() {
     watcher.observe(loop);
   }
 
+  const summaries = $$("[data-about]", reel);
   const links = $$("[data-yt]", reel);
   links.forEach((link) =>
     link.addEventListener("click", (e) => {
@@ -34,6 +36,8 @@ export function initDemo() {
       frame.title = link.dataset.title;
       frame.src = embedSrc(link.href);
       links.forEach((other) => other.classList.toggle("is-current", other === link));
+      const id = videoId(link.href);
+      summaries.forEach((summary) => (summary.hidden = summary.dataset.about !== id));
       if (!player.contains(link)) {
         player.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "nearest" });
       }

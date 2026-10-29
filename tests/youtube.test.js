@@ -1,7 +1,14 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 
-import { embedSrc } from "../js/lib/youtube.js";
+import { embedSrc, videoId } from "../js/lib/youtube.js";
+
+describe("videoId", () => {
+  it("reads the id from a share link, with or without a time", () => {
+    assert.equal(videoId("https://youtu.be/abc123XYZ_-"), "abc123XYZ_-");
+    assert.equal(videoId("https://youtu.be/abc123XYZ_-?t=57"), "abc123XYZ_-");
+  });
+});
 
 describe("embedSrc", () => {
   it("embeds a share link from the start", () => {
