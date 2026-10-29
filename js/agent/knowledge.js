@@ -55,7 +55,7 @@ export const DETAILS = {
         "<b>Covers</b> overdue member entries and actions, field visits, legal actions and reports.",
         "<b>Rollout</b>: I presented it to the head office executive team, piloted it in the Karwan Bazar branch, trained every staff member there (on their phones too) and collected their feedback before the wider rollout.",
       ],
-    )}<p>${link(LINKS.pilotPost, "The Karwan Bazar pilot on LinkedIn")}</p>`,
+    )}<p><a href="#demo">Watch the demo</a> · ${link(LINKS.pilotPost, "The Karwan Bazar pilot on LinkedIn")}</p>`,
   },
   report: {
     title: "Branch Report Automation Engine",

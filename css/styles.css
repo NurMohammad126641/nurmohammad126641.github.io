@@ -1278,6 +1278,177 @@ kbd {
 .proof-link:hover {
   text-decoration: underline;
 }
+
+/* ---------- Demo reel ---------- */
+.demo {
+  display: grid;
+  grid-template-columns: minmax(0, 1.75fr) minmax(0, 1fr);
+  grid-template-areas:
+    "player head"
+    "player more"
+    "chapters more";
+  grid-template-rows: auto 1fr auto;
+  gap: 16px 30px;
+  padding: 34px;
+  margin-bottom: 26px;
+  border-radius: 24px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+}
+.demo-head {
+  grid-area: head;
+}
+.demo-head h3 {
+  font-size: 30px;
+  font-weight: 800;
+}
+.demo-head .case-one {
+  margin-bottom: 0;
+}
+.demo-player {
+  grid-area: player;
+  align-self: start;
+  position: relative;
+  aspect-ratio: 16 / 9;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: #050a14;
+}
+.demo-player video,
+.demo-player iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  object-fit: cover;
+}
+.demo-player .media-tag {
+  top: 12px;
+  bottom: auto;
+}
+.demo-play {
+  position: absolute;
+  left: 50%;
+  bottom: 22px;
+  transform: translateX(-50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px;
+  border-radius: 999px;
+  font: 800 15px var(--font);
+  color: #04101c;
+  text-decoration: none;
+  white-space: nowrap;
+  background: linear-gradient(90deg, var(--c1), var(--c2));
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  transition: filter 0.2s;
+}
+.demo-play::before {
+  content: "";
+  border-left: 11px solid currentColor;
+  border-block: 7px solid transparent;
+}
+.demo-play span {
+  font-weight: 600;
+  opacity: 0.75;
+}
+.demo-play:hover {
+  filter: brightness(1.08);
+}
+.demo-chapters {
+  grid-area: chapters;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.demo-chapters a {
+  font: 700 13px var(--font);
+  color: var(--ink-2);
+  text-decoration: none;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--line-2);
+  background: var(--surface-2);
+  transition:
+    color 0.2s,
+    border-color 0.2s;
+}
+.demo-chapters a:hover,
+.demo-chapters a.is-current {
+  color: var(--ink);
+  border-color: var(--c1);
+}
+.demo-more {
+  grid-area: more;
+  align-self: end;
+  display: grid;
+  gap: 10px;
+}
+.demo-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: 132px 1fr;
+  align-items: center;
+  color: inherit;
+  text-decoration: none;
+  border-radius: 16px;
+  border: 1px solid var(--line);
+  background: var(--surface-2);
+  overflow: hidden;
+  transition:
+    border-color 0.2s,
+    transform 0.2s;
+}
+.demo-card::after {
+  content: "";
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: rgba(4, 16, 28, 0.72);
+}
+.demo-card::before {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  top: 16px;
+  left: 18px;
+  border-left: 8px solid #fff;
+  border-block: 5px solid transparent;
+}
+.demo-card:hover {
+  border-color: var(--line-2);
+  transform: translateY(-2px);
+}
+.demo-card.is-current {
+  border-color: var(--c1);
+}
+.demo-card img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+.demo-card span {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 10px 14px;
+  font-size: 14.5px;
+}
+.demo-card b {
+  color: var(--ink);
+}
+.demo-card small {
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 600;
+}
 .mini-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -2296,6 +2467,70 @@ summary {
   .mini-grid > * {
     flex: 0 0 84%;
     scroll-snap-align: start;
+  }
+
+  /* Demo reel: one column; chapters and the three short demos become swipeable rows */
+  .demo {
+    display: block;
+    padding: 16px;
+    border-radius: 20px;
+    margin-bottom: 18px;
+  }
+  .demo-head {
+    margin-bottom: 16px;
+  }
+  .demo-chapters {
+    margin: 12px -16px 18px;
+  }
+  .demo-card {
+    display: block;
+  }
+  .demo-card span {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 12px 14px;
+  }
+  .demo-head h3 {
+    font-size: 24px;
+  }
+  .demo-player {
+    border-radius: 12px;
+  }
+  .demo-play {
+    bottom: 12px;
+    padding: 10px 16px;
+    font-size: 14px;
+  }
+  .demo-chapters,
+  .demo-more {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    margin-inline: -16px;
+    padding-inline: 16px;
+    scroll-padding-inline: 16px;
+    scrollbar-width: none;
+  }
+  .demo-chapters::-webkit-scrollbar,
+  .demo-more::-webkit-scrollbar {
+    display: none;
+  }
+  .demo-chapters a {
+    flex: 0 0 auto;
+    padding: 8px 14px;
+  }
+  .demo-more {
+    gap: 12px;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 4px;
+  }
+  .demo-more > * {
+    flex: 0 0 72%;
+    scroll-snap-align: start;
+  }
+  .demo-card:hover {
+    transform: none;
   }
   .repo:hover,
   .post:hover {
