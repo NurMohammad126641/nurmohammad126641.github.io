@@ -61,7 +61,8 @@ async function postGemini(path, body, env, timings) {
     method: "POST",
     headers: { "Content-Type": "application/json", "x-goog-api-key": env.GEMINI_API_KEY },
     body: JSON.stringify(body),
-    signal: AbortSignal.timeout(20000),
+    // Calls normally take 1–4 s; give up early so the browser falls back to the rule-based agent fast.
+    signal: AbortSignal.timeout(8000),
   });
   timings.push(Date.now() - started);
   if (!response.ok) throw new Error(`Gemini returned ${response.status}`);
