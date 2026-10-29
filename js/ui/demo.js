@@ -11,10 +11,31 @@ export function initDemo() {
   const player = $(".demo-player", reel);
   const loop = $("video", player);
 
+  // Pause/play button for the loop; once a visitor pauses it, scrolling never restarts it.
+  const toggle = $(".demo-pause", player);
+  let pausedByVisitor = false;
+  if (loop && toggle) {
+    const sync = () => {
+      toggle.classList.toggle("is-paused", loop.paused);
+      toggle.setAttribute("aria-label", `${loop.paused ? "Play" : "Pause"} the highlight reel`);
+    };
+    loop.addEventListener("play", sync);
+    loop.addEventListener("pause", sync);
+    toggle.addEventListener("click", () => {
+      pausedByVisitor = !loop.paused;
+      if (pausedByVisitor) loop.pause();
+      else loop.play().catch(() => {});
+    });
+    toggle.hidden = false;
+  }
+
   let watcher;
   if (loop && !reduceMotion && "IntersectionObserver" in window) {
     watcher = new IntersectionObserver(
-      ([entry]) => (entry.isIntersecting ? loop.play().catch(() => {}) : loop.pause()),
+      ([entry]) => {
+        if (!entry.isIntersecting) loop.pause();
+        else if (!pausedByVisitor) loop.play().catch(() => {});
+      },
       { threshold: 0.4 },
     );
     watcher.observe(loop);

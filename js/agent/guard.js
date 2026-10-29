@@ -1,6 +1,6 @@
-// Guardrail for LLM answers: every email, phone number, link and technology in an answer
-// must come from the sources (the visitor's question and the tool results). Anything else
-// is treated as made up, and the answer is not shown.
+// Guardrail for LLM answers: every email, phone number, link, technology and claim about how
+// I worked in an answer must come from the sources (the visitor's question and the tool
+// results). Anything else is treated as made up, and the answer is not shown.
 
 // Technologies a model might add from its own general knowledge. Matched case-sensitively in
 // the answer (they're proper names, so "excel at" or "react quickly" don't count).
@@ -73,6 +73,17 @@ const TECH_TERMS = [
   "Chart.js",
 ];
 
+// Claims about how I worked that a model might invent ("I built it alone", "I led a team of 5").
+const WORK_CLAIMS = [
+  /\balone\b/i,
+  /\bsingle-?handed\w*/i,
+  /\bby myself\b/i,
+  /\bon my own\b/i,
+  /\bsolo\b/i,
+  /\b(led|lead|managed|manage|managing|leading) (a|the|my|an?) (\w+ )?team\b/i,
+  /\bteam of \d+/i,
+];
+
 const escapeRegex = (text) => text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 const termPattern = (term, flags = "") => new RegExp(`(^|[^\\w.])${escapeRegex(term)}($|[^\\w])`, flags);
 const TERM_PATTERNS = TECH_TERMS.map((term) => [term, termPattern(term), termPattern(term, "i")]);
@@ -95,6 +106,10 @@ export function findUnsupportedClaims(answer, sources) {
   }
   for (const [term, inAnswer, inSource] of TERM_PATTERNS) {
     if (inAnswer.test(answer) && !inSource.test(source)) problems.add(term);
+  }
+  for (const claim of WORK_CLAIMS) {
+    const found = answer.match(claim);
+    if (found && !claim.test(source)) problems.add(found[0]);
   }
   return [...problems];
 }

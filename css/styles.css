@@ -1328,6 +1328,38 @@ kbd {
   top: 12px;
   bottom: auto;
 }
+.demo-pause {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  color: #fff;
+  background: rgba(4, 16, 28, 0.72);
+  cursor: pointer;
+}
+.demo-pause::before {
+  content: "";
+  width: 10px;
+  height: 12px;
+  border-inline: 3px solid currentColor;
+}
+.demo-pause.is-paused::before {
+  width: 0;
+  height: 0;
+  margin-left: 3px;
+  border-inline: 0;
+  border-left: 11px solid currentColor;
+  border-block: 7px solid transparent;
+}
+.demo-pause[hidden] {
+  display: none;
+}
 .demo-play {
   position: absolute;
   left: 50%;
@@ -2582,6 +2614,10 @@ summary {
     padding: 10px 16px;
     font-size: 14px;
   }
+  .demo-pause {
+    width: 32px;
+    height: 32px;
+  }
   .demo-chapters,
   .demo-more {
     display: flex;
@@ -2608,6 +2644,11 @@ summary {
   .demo-more > * {
     flex: 0 0 72%;
     scroll-snap-align: start;
+  }
+  @media (min-width: 600px) {
+    .demo-more > * {
+      flex-basis: 44%;
+    }
   }
   .demo-card:hover {
     transform: none;

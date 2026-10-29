@@ -1,7 +1,8 @@
 // Picks which tool(s) to call for a question, with which arguments.
 // In production an LLM makes this choice; here plain rules keep the demo instant and free.
 
-import { list } from "../lib/html.js";
+import { LINKS } from "../config.js";
+import { link, list } from "../lib/html.js";
 import { DETAILS, NOT_YET, SKILLS } from "./knowledge.js";
 import { reachMe } from "./tools.js";
 
@@ -131,6 +132,10 @@ const HOW_I_WORK = `<p>Good question! Here's how I work:</p>${list([
   "I answer using only that data, so I never make things up.",
 ])}<p>Normally Google Gemini picks the tools, using function calling. Right now I'm in quick mode: simple rules pick them, so I still answer instantly when Gemini is busy.</p>`;
 
+const IN_PERSON = `<p>That's a great question for a real conversation rather than a canned answer from me.</p><p>Ask Nur directly: ${reachMe()}.</p>`;
+
+const THIS_SITE = `<p>This site is plain HTML, CSS and JavaScript, with no framework. I run on Google Gemini with function calling, and a rule-based version answers if Gemini is unavailable.</p><p>The code is public: ${link(LINKS.github + "/nurmohammad126641.github.io", "see it on GitHub")}.</p>`;
+
 // --- Routing -------------------------------------------------------------------------
 
 // Words that describe a field rather than a specific tool, so "do you know X" skips them.
@@ -170,17 +175,49 @@ export function route(question, followUp = null) {
   const q = " " + fixTypos(question.toLowerCase().replace(/[^\w\s/+#.-]/g, " ")) + " ";
   const has = (pattern) => pattern.test(q);
 
+  if (/[ঀ-৿]/.test(question)) {
+    return {
+      reply: `<p>In quick mode I can only answer in English. Try: <i>What do you do?</i></p>`,
+      note: "Bangla question, quick mode answers in English",
+    };
+  }
   if (!q.replace(GREETING_WORDS, "").trim()) {
     return {
       reply: `<p>Hi! Ask me about Nur's projects, skills, work history, or how to get in touch.</p>`,
       note: "Just saying hello, no lookup needed",
     };
   }
-  if (has(/\b(thanks?|thank you|thx|bye|goodbye)\b/) && !q.replace(THANKS_WORDS, "").trim()) {
+  if (!q.replace(THANKS_WORDS, "").trim()) {
     return {
-      reply: `<p>You're welcome! To talk to Nur directly: ${reachMe()}.</p>`,
+      reply: has(/\b(thanks?|thank you|thx|bye|goodbye|see you)\b/)
+        ? `<p>You're welcome! To talk to Nur directly: ${reachMe()}.</p>`
+        : `<p>Great! Ask me anything else about Nur's work, or reach Nur directly: ${reachMe()}.</p>`,
       note: "No lookup needed",
     };
+  }
+  if (
+    has(
+      /\b(ignore (all |the |your |previous |prior |above )*(instructions|rules|prompts?)|system prompt|your (instructions|prompt|rules)|jailbreak|developer mode)\b/,
+    )
+  ) {
+    return {
+      reply: `<p>I can't share how I'm set up, but I'm happy to answer anything about Nur's work, skills or experience.</p>`,
+      note: "Not something I share",
+    };
+  }
+  if (
+    has(
+      /\b(weakness\w*|a time (when )?you (failed|made a mistake)|your (biggest )?(failures?|mistakes?)|conflicts?|handle (pressure|stress|deadlines)|hobb(y|ies)|married|how old|your age|why (did|do|would) you (leave|left|quit|switch|change)\w*|leaving (your|tallykhata|padakhep))\b/,
+    )
+  ) {
+    return { reply: IN_PERSON, note: "Best answered by Nur in person" };
+  }
+  if (
+    has(
+      /\b(this (website|site|portfolio|page)|your (website|site)|(built|made|build|make) (this|the) (site|website))\b/,
+    )
+  ) {
+    return { reply: THIS_SITE, note: "About this site, no lookup needed" };
   }
   if (
     has(
@@ -199,7 +236,7 @@ export function route(question, followUp = null) {
     return call("get_contact", "interview", `topic="interview"`);
   if (
     has(
-      /\b(salar\w*|ctc|compensation|expected (pay|package)|notice period|notice|start date|when can you (start|join)|join (immediately|us|soon)|immediate(ly)? join\w*|availab\w*|remote|on-?site|hybrid|relocat\w*|visa)\b/,
+      /\b(salar\w*|ctc|compensation|expected (pay|package)|notice period|notice|start date|when can you (start|join)|join (immediately|us|soon)|immediate(ly)? join\w*|availab\w*|remote|on-?site|hybrid|relocat\w*|visa|rates?|hourly|pricing|how much do you charge)\b/,
     )
   )
     return call("get_contact", "hiring", `topic="hiring"`);
@@ -221,7 +258,7 @@ export function route(question, followUp = null) {
     return call("get_contact", "location", `topic="location"`);
   if (
     has(
-      /\b(looking for|open to|kind of (role|job|position)|next role|job search|seeking|career goals?|what roles?)\b/,
+      /\b(looking for|open to|kind of (role|job|position)|next role|job search|seeking|career goals?|what roles?|freelanc\w*|contract (work|role|job)s?|part.?time|consult\w*)\b/,
     )
   )
     return call("get_profile", "roles", `section="roles"`);
@@ -232,7 +269,9 @@ export function route(question, followUp = null) {
   )
     return call("get_education", null);
 
-  // Named projects and companies.
+  // Named projects and companies. Open-source repos by name first, so their "live demo" isn't the OD Tracker demo.
+  if (has(/\b(payments-ops\S*|redmine\S*|sms-balance\S*|nextjs-social\S*)/))
+    return call("get_projects", "open_source", `domain="open_source"`);
   for (const key in DETAILS) if (has(DETAILS[key].match)) return projectDetail(key);
   if (
     has(
@@ -248,13 +287,20 @@ export function route(question, followUp = null) {
     )
   )
     return call("get_experience", "padakhep", `company="Padakhep"`);
+  const ml = NOT_YET.find((entry) => entry.match.test(" machine learning "));
+  if (has(/\b(machine learning|ml|deep learning)\b/)) {
+    return call("find_evidence", { name: "Machine learning", answer: ml.answer }, `skill="Machine learning"`);
+  }
   if (
     has(
-      /\b(ai|a\.i|llms?|gemini|gpt|chatgpt|openai|claude|agents?|agentic|genai|gen ai|machine learning|ml|rag|prompt\w*|artificial intelligence)\b/,
+      /\b(ai|a\.i|llms?|gemini|gpt|chatgpt|openai|claude|agents?|agentic|genai|gen ai|rag|prompt\w*|artificial intelligence)\b/,
     )
   )
     return call("get_projects", "ai", `domain="ai"`);
-  if (has(/\byears?\b|how long have you/)) return call("get_experience", "all", `company="all"`);
+  if (has(/\byears?\b|how long have you|\b(senior|seniority)\b|\b(your|what) level\b|your (job )?title/))
+    return call("get_experience", "all", `company="all"`);
+  if (has(/\b(your team|team size|how big is (your|the) team|who do you work with)\b/))
+    return call("get_experience", "padakhep", `company="Padakhep"`);
   if (
     has(
       /\b(impact|biggest|proud|achievements?|accomplish\w*|results?|numbers|metrics?|largest|scale|how (big|much|many)|datasets?)\b/,

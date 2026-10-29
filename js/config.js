@@ -18,6 +18,10 @@ export const LINKS = {
     "https://www.linkedin.com/posts/nur-mohammad-siddiq-9a73931b6_metabase-dataengineering-businessintelligence-activity-7467101477631868928-ZS6i",
   pilotPost:
     "https://www.linkedin.com/posts/nur-mohammad-siddiq-9a73931b6_from-idea-to-impact-field-tested-at-padakhep-activity-7417498070814339072-PMF2",
+  demoTour: "https://youtu.be/76sRtxefyfA",
+  demoMobile: "https://youtu.be/bmRWBmnchiA",
+  demoReporting: "https://youtu.be/M6PpXh8aGFY",
+  demoMonitor: "https://youtu.be/pxd4tlJWejA",
   paymentsDemo: "https://nurmohammad126641.github.io/payments-ops-monitoring/",
   redmineDemo: "https://nurmohammad126641.github.io/redmine-issue-reporter/",
 };

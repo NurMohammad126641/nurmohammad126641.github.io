@@ -59,6 +59,11 @@ describe("renderMarkdown", () => {
       renderMarkdown("[post](https://www.linkedin.com/posts/x)"),
       /<a href="https:\/\/www\.linkedin\.com/,
     );
+    assert.match(
+      renderMarkdown("[full tour](https://youtu.be/76sRtxefyfA)"),
+      /<a href="https:\/\/youtu\.be\//,
+    );
+    assert.match(renderMarkdown("[watch here](#demo)"), /<a href="#demo">/);
     assert.equal(renderMarkdown("[click](https://evil.example/github.com/)"), "<p>click</p>");
     assert.doesNotMatch(renderMarkdown("[x](javascript:alert(1))"), /<a|javascript/);
   });
@@ -79,6 +84,15 @@ describe("findUnsupportedClaims", () => {
       ).sort(),
       ["+880 1936-302302", "Airflow", "JWT", "https://evil.example.", "nur@x.com"].sort(),
     );
+  });
+
+  it("flags invented claims about working alone or leading a team", () => {
+    assert.deepEqual(findUnsupportedClaims("Yes, I built it alone.", sources), ["alone"]);
+    assert.deepEqual(findUnsupportedClaims("I led a team of 5 engineers.", sources).sort(), [
+      "led a team",
+      "team of 5",
+    ]);
+    assert.deepEqual(findUnsupportedClaims("I trained every staff member.", sources), []);
   });
 
   it("ignores ordinary words that look like tool names", () => {

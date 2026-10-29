@@ -23,7 +23,7 @@ export const TOOL_DECLARATIONS = [
     type: "function",
     name: "get_projects",
     description:
-      "Nur's work. Pass 'domain' for a list (ai, data, backend, bi, impact = biggest results, open_source, featured = best projects), or 'project' for one project in depth: overdue (Overdue Tracking Platform), report (Branch Report Automation Engine), chatbot (AI Analytics Chatbot), metabase (Microfinance Operations Dashboard), warehouse (Central PostgreSQL Data Warehouse).",
+      "Nur's work. Pass 'domain' for a list (ai, data, backend, bi, impact = biggest results, open_source, featured = best projects), or 'project' for one project in depth: overdue (Overdue Tracking Platform, also called OD Tracker 2.0, with its demo videos, mobile version, OD Monitor and reporting dashboard), report (Branch Report Automation Engine), chatbot (AI Analytics Chatbot), metabase (Microfinance Operations Dashboard), warehouse (Central PostgreSQL Data Warehouse).",
     parameters: {
       type: "object",
       properties: {

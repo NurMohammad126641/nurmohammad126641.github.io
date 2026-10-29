@@ -4,7 +4,7 @@
 import { escapeHtml } from "./html.js";
 
 const SAFE_LINK =
-  /^(https:\/\/([a-z0-9-]+\.)*(linkedin\.com|github\.com|github\.io|wa\.me)\/|mailto:|tel:|assets\/)/i;
+  /^(https:\/\/([a-z0-9-]+\.)*(linkedin\.com|github\.com|github\.io|wa\.me|youtu\.be|youtube\.com)\/|mailto:|tel:|assets\/|#[\w-]+$)/i;
 
 function inline(text) {
   return escapeHtml(text)

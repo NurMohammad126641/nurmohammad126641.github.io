@@ -24,7 +24,7 @@ export const PROJECTS = {
     `I also use <b>Power BI</b> at Padakhep, plus Excel with Power Query.`,
   ],
   featured: [
-    `<b>Overdue Tracking Platform</b>: Django platform used by 4,000+ staff across 406 branches.`,
+    `<b>Overdue Tracking Platform</b>: Django platform used by 4,000+ staff across 406 branches. ${link(LINKS.demoTour, "Watch the demo")}`,
     `<b>AI Analytics Chatbot</b>: plain-English questions in, charts out, with Gemini function calling.`,
     `<b>Branch Report Automation Engine</b>: 2–3 days of manual work → under 2 hours, 100% accurate.`,
     `<b>Microfinance Operations Dashboard</b>: one live Metabase screen replaced 10+ Excel files.`,
@@ -48,14 +48,16 @@ export const PROJECTS = {
 export const DETAILS = {
   overdue: {
     title: "Overdue Tracking Platform",
-    match: /overdue|tracking platform|loan tracking/,
-    html: `<p><b>Overdue Tracking Platform</b> (Padakhep): one platform instead of manual Excel tracking, used daily by <b>4,000+ staff across 406 branches</b>.</p>${list(
+    match:
+      /overdue|tracking platform|loan tracking|od tracker|od monitor|\bdemos?\b|\bvideos?\b|in action|mobile (app|version)|reporting dashboard/,
+    html: `<p><b>Overdue Tracking Platform</b> (OD Tracker 2.0, Padakhep): one platform instead of manual Excel tracking, used daily by <b>4,000+ staff across 406 branches</b>.</p>${list(
       [
-        "<b>Built with</b> Django REST Framework and PostgreSQL, Celery and Redis for background jobs, secure authentication and REST API integration.",
-        "<b>Covers</b> overdue member entries and actions, field visits, legal actions and reports.",
+        "<b>Built with</b> Django REST Framework and PostgreSQL, Celery and Redis for background jobs and caching, PgBouncer, nginx and Docker, with secure authentication and REST API integration.",
+        "<b>Covers</b> overdue member entries, recovery actions up an 8-step ladder from first notice to court case, field visits, approvals and reports, with role-based access from field officer to head office.",
+        "<b>Also</b>: a mobile version installed straight from the browser, an OD Monitor for live staff activity, and a reporting dashboard that reads a separate warehouse in under half a second.",
         "<b>Rollout</b>: I presented it to the head office executive team, piloted it in the Karwan Bazar branch, trained every staff member there (on their phones too) and collected their feedback before the wider rollout.",
       ],
-    )}<p><a href="#demo">Watch the demo</a> · ${link(LINKS.pilotPost, "The Karwan Bazar pilot on LinkedIn")}</p>`,
+    )}<p>Demo videos (demo data): ${link(LINKS.demoTour, "full tour")}, ${link(LINKS.demoMobile, "mobile")}, ${link(LINKS.demoReporting, "reporting dashboard")} and ${link(LINKS.demoMonitor, "OD Monitor")}. Or <a href="#demo">watch them on this page</a>.</p><p>${link(LINKS.pilotPost, "The Karwan Bazar pilot on LinkedIn")}</p>`,
   },
   report: {
     title: "Branch Report Automation Engine",
@@ -70,8 +72,8 @@ export const DETAILS = {
   },
   chatbot: {
     title: "AI Analytics Chatbot",
-    match: /chat ?bot|analytics assistant|ai assistant/,
-    html: `<p><b>AI Analytics Chatbot</b> (Padakhep, 2026): anyone in the organisation asks for a report in plain English and gets the chart back in seconds, with no SQL.</p>${list(
+    match: /chat ?bot|analytics assistant|ai assistant|function.?calling/,
+    html: `<p><b>AI Analytics Chatbot</b> (Padakhep, 2026): anyone in the organization asks for a report in plain English and gets the chart back in seconds, with no SQL.</p>${list(
       [
         "Gemini-powered, inside the reporting dashboard.",
         "Function calling and agentic workflows pick the right function, query the live database and return the chart.",
@@ -177,7 +179,33 @@ export const SKILLS = [
     evidence: ["Live production data for payment investigations at TallyKhata"],
   },
   {
-    match: /database|\bdbs?\b|dbms|schema|indexing/,
+    match: /nginx|pgbouncer|connection pool\w*|load balanc\w*|gunicorn/,
+    name: "nginx & PgBouncer",
+    more: "overdue",
+    evidence: [
+      "OD Tracker 2.0 runs behind nginx (HTTPS, static files, load balancing) across two Django app servers on Gunicorn",
+      "PgBouncer pools the PostgreSQL connections",
+    ],
+  },
+  {
+    match: /system design|architect\w*|scalab\w*|scaling|high availability/,
+    name: "System design",
+    more: "overdue",
+    evidence: [
+      "OD Tracker 2.0: nginx in front of two Django app servers, PgBouncer, Redis caching, Celery workers and a separate reporting warehouse; a typical page loads in under a second",
+      "Branch report engine: parallel workers across 406 branches with self-healing retries",
+    ],
+  },
+  {
+    match: /\bpwa\b|progressive web app|responsive|mobile[- ]first/,
+    name: "Mobile web (PWA)",
+    more: "overdue",
+    evidence: [
+      "OD Tracker 2.0 installs on phones straight from the browser: thumb-first navigation, loan cards and photo proof",
+    ],
+  },
+  {
+    match: /database|\bdbs?\b|dbms|schema|indexing|data model\w*/,
     name: "Databases",
     more: "metabase",
     evidence: [
@@ -225,7 +253,7 @@ export const SKILLS = [
     ],
   },
   {
-    match: /beautiful ?soup|bs4|openpyxl|gunicorn|middleware|sessions?\b|caching|cache\b|\bauth\w*/,
+    match: /beautiful ?soup|bs4|openpyxl|middleware|sessions?\b|caching|cache\b|\bauth\w*/,
     name: "Python & Django toolkit",
     more: "overdue",
     evidence: [
@@ -383,7 +411,13 @@ export const NOT_YET = [
       "I build agents directly with LLM APIs (function calling), without a framework. I also write about RAG and AI agents on LinkedIn.",
   },
   {
-    match: /tensorflow|pytorch|keras|scikit|sklearn|deep learning|computer vision|\bnlp\b/,
+    match: /micro-?services?/,
+    answer:
+      "Not as separate microservices yet. OD Tracker 2.0 is one Django app behind nginx, with Celery workers, Redis and a separate reporting warehouse, and it serves 4,000+ users.",
+  },
+  {
+    match:
+      /tensorflow|pytorch|keras|scikit|sklearn|deep learning|computer vision|\bnlp\b|machine learning|\bml\b/,
     answer:
       "I studied machine learning with Python at BASIS (BITM). My real AI work is with large language models: function calling and agentic workflows. I haven't used this one in a real project yet.",
   },

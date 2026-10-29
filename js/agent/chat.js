@@ -11,11 +11,11 @@ import { describeCall } from "./trace.js";
 
 const SUGGESTIONS = [
   "What do you do?",
+  "Show me a demo",
   "How does this agent work?",
   "Show me your AI work",
   "What's your biggest impact?",
   "Django & PostgreSQL?",
-  "Fintech experience?",
   "Why work with you?",
   "How can I contact you?",
 ];
