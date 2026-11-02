@@ -9,6 +9,7 @@
     "test": "node --test",
     "format": "prettier --write .",
     "lint": "prettier --check .",
+    "eval": "node evals/run.js",
     "deploy:agent": "cd worker && npx --yes wrangler@4.149.0 deploy"
   },
   "devDependencies": {

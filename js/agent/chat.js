@@ -131,7 +131,7 @@ export function initChat() {
         bot.innerHTML = `<div class="trace working">${step("…", "Gemini is reading your question")}<span class="caret"></span></div>`;
         const gemini = await askGemini(text, history.slice(-3));
         if (gemini) {
-          history.push({ q: text, a: gemini.answer });
+          history.push({ q: text, a: gemini.answer, sig: gemini.sig });
           const calls = gemini.calls.map((c) => toToolCall(c.name, c.args)).filter(Boolean);
           highlightTools(calls.map((c) => c.tool));
           const seconds = ((performance.now() - started) / 1000).toFixed(1);

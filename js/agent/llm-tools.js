@@ -12,10 +12,10 @@ export const TOOL_DECLARATIONS = [
     type: "function",
     name: "get_profile",
     description:
-      "Nur's profile. 'about' is a short summary, 'pitch' gives three reasons to work with Nur, 'stack' lists all skills by group, 'roles' says what roles and projects Nur is open to.",
+      "Nur's profile. 'about' is a short summary, 'pitch' gives three reasons to work with Nur, 'stack' lists all skills by group, 'roles' says what roles and projects Nur is open to, 'build' says how Nur works: which projects were built solo, what the ICT team did, and how Nur uses AI coding agents.",
     parameters: {
       type: "object",
-      properties: { section: { type: "string", enum: ["about", "pitch", "stack", "roles"] } },
+      properties: { section: { type: "string", enum: ["about", "pitch", "stack", "roles", "build"] } },
       required: ["section"],
     },
   },
@@ -23,7 +23,7 @@ export const TOOL_DECLARATIONS = [
     type: "function",
     name: "get_projects",
     description:
-      "Nur's work. Pass 'domain' for a list (ai, data, backend, bi, impact = biggest results, open_source, featured = best projects), or 'project' for one project in depth: overdue (Overdue Tracking Platform, also called OD Tracker 2.0, with its demo videos, mobile version, OD Monitor and reporting dashboard), report (Branch Report Automation Engine), chatbot (AI Analytics Chatbot), metabase (Microfinance Operations Dashboard), warehouse (Central PostgreSQL Data Warehouse).",
+      "Nur's work. Pass 'domain' for a list (ai, data, backend, bi, impact = biggest results, open_source, featured = best projects), or 'project' for one project in depth: overdue (Overdue Tracking Platform, also called OD Tracker 2.0, with its demo videos, mobile version, OD Monitor and reporting dashboard), report (Branch Report Automation Engine: pulls all 406 branches from the MIS through its internal REST API), chatbot (AI Analytics Chatbot), metabase (Microfinance Operations Dashboard), warehouse (Central PostgreSQL Data Warehouse).",
     parameters: {
       type: "object",
       properties: {

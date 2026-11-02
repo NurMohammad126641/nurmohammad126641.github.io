@@ -9,10 +9,16 @@ export const reachMe = () => `${link("mailto:" + EMAIL, EMAIL)} or ${link(WHATSA
 
 const PROFILE = {
   pitch: `<p>Three reasons, all with proof:</p>${list([
-    "<b>My work is used every day.</b> My platform runs in 406 branches for 4,000+ users, not just in a demo.",
-    "<b>I'm up to date with AI.</b> I built a Gemini chatbot that uses function calling, and I write about RAG and AI agents.",
+    "<b>I ship real systems, end to end.</b> I built OD Tracker 2.0 solo, and it's now the official system in 406 branches for 4,000+ users, not just a demo.",
+    "<b>I'm up to date with AI.</b> I built a Gemini chatbot that uses function calling, I build with AI coding agents to ship faster, and I write about RAG and AI agents.",
     "<b>I care about getting it right.</b> Checks, automatic retries and tests keep my 730K-row report 100% accurate.",
   ])}<p>Want to talk? ${link("mailto:" + EMAIL, EMAIL)}</p>`,
+  build: `<p>How I work:</p>${list([
+    "I built OD Tracker 2.0, the Branch Report Automation Engine and the AI Analytics Chatbot solo: design, code, deployment and support.",
+    "Padakhep's ICT team provides the servers. I run everything from staging to production.",
+    "I build with AI coding agents such as Claude Code as a pair programmer, so I ship faster. The architecture, code reviews and every production decision are mine, and I can walk you through any part of the code.",
+    "Requests come from management through my boss, and I turn them into working systems.",
+  ])}`,
   stack: STACK,
   roles: `<p>I'm open to <b>new roles and projects</b> in data engineering, BI, and Python backend and automation, especially where AI is part of the work.</p><p>The easiest way to start: ${reachMe()}.</p>`,
   about: `<p>I'm Nur Mohammad Siddiq, a <b>Data, BI &amp; Automation Engineer</b> in Dhaka with 2.5+ years of experience. I build data, backend and AI systems that people use every day: Python, Django, PostgreSQL, data pipelines, dashboards and AI agents, mostly for microfinance and fintech.</p><p>Right now I'm building a central PostgreSQL data warehouse at Padakhep.</p>`,
@@ -36,7 +42,7 @@ export const TOOLS = {
 
   find_evidence: (skill) => {
     if (skill.evidence) return `<p>Where I've used <b>${skill.name}</b>:</p>${list(skill.evidence)}`;
-    if (skill.answer) return `<p><b>${skill.name}</b>: ${skill.answer}</p>`;
+    if (skill.answer) return `<p><b>${escapeHtml(skill.name)}</b>: ${skill.answer}</p>`;
     return `<p>I couldn't find <b>${escapeHtml(skill.name)}</b> in my projects or work, so I won't claim it.</p><p>My main skills are Python, Django, PostgreSQL, data pipelines, BI dashboards and AI agents. Ask about any of them and I'll show proof.</p>`;
   },
 

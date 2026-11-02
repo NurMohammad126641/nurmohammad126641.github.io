@@ -38,6 +38,15 @@ describe("route", () => {
     ["Do you do freelance work?", 'get_profile(section="roles")'],
     ["What's your hourly rate?", 'get_contact(topic="hiring")'],
     ["Are you a senior engineer?", 'get_experience(company="all")'],
+    ["Did you build OD Tracker alone?", 'get_profile(section="build")'],
+    ["Did you build it yourself?", 'get_profile(section="build")'],
+    ["How big is your team?", 'get_profile(section="build")'],
+    ["Did you use ChatGPT or Claude to write the code?", 'get_profile(section="build")'],
+    ["Is your code AI-generated?", 'get_profile(section="build")'],
+    ["How many borrowers does it track?", 'get_projects(name="Overdue Tracking Platform")'],
+    ["Can it answer in Banglish?", 'get_projects(name="AI Analytics Chatbot")'],
+    ["Tell me about your weekly report automation", 'get_projects(name="Branch Report Automation Engine")'],
+    ["Tell me about yourself", "get_profile()"],
   ];
   for (const [question, expected] of cases) {
     it(`${question} → ${expected}`, () => assert.deepEqual(callsFor(question), [expected]));

@@ -8,6 +8,7 @@ import { renderMarkdown } from "../js/lib/markdown.js";
 describe("LLM tools", () => {
   it("declares every tool with a name, description and object parameters", () => {
     assert.equal(TOOL_DECLARATIONS.length, 6);
+    assert.ok(TOOL_DECLARATIONS[0].parameters.properties.section.enum.includes("build"));
     for (const tool of TOOL_DECLARATIONS) {
       assert.equal(tool.type, "function");
       assert.ok(tool.name && tool.description, tool.name);
@@ -93,6 +94,36 @@ describe("findUnsupportedClaims", () => {
       "team of 5",
     ]);
     assert.deepEqual(findUnsupportedClaims("I trained every staff member.", sources), []);
+  });
+
+  it("allows a solo claim only when a source makes one, in any wording", () => {
+    const solo = ["I built OD Tracker 2.0 solo."];
+    assert.deepEqual(findUnsupportedClaims("Yes, I built it alone, by myself.", solo), []);
+    assert.deepEqual(findUnsupportedClaims("I led a team of 5.", solo).sort(), ["led a team", "team of 5"]);
+  });
+
+  it("flags numbers that no source backs up, however they're written", () => {
+    const facts = ["4,000+ staff across 406 branches, 10–15K visits a day, about 4.4× faster."];
+    assert.deepEqual(
+      findUnsupportedClaims("4000+ staff in 406 branches, 10–15K visits, 4.4× faster.", facts),
+      [],
+    );
+    assert.deepEqual(findUnsupportedClaims("৪,০০০+ staff use it.", facts), []);
+    assert.deepEqual(findUnsupportedClaims("It tracks 500,000 borrowers, 95% faster.", facts).sort(), [
+      "500000",
+      "95",
+    ]);
+    assert.deepEqual(findUnsupportedClaims("It has 3 parts and 2 views.", facts), []);
+  });
+
+  it("never lets private names or secrets through, even when a source has them", () => {
+    const leaky = ["Acme Portal admin credentials and the API key."];
+    assert.deepEqual(
+      findUnsupportedClaims("Acme Portal uses admin credentials and an API key.", leaky, [
+        "acme portal",
+      ]).sort(),
+      ["API key", "Acme Portal", "credentials"],
+    );
   });
 
   it("ignores ordinary words that look like tool names", () => {

@@ -269,6 +269,15 @@ export function route(question, followUp = null) {
   )
     return call("get_education", null);
 
+  // Who built what, the ICT team's part, and AI coding agents: before project names, so
+  // "Did you build OD Tracker alone?" gets the honest answer rather than the project tour.
+  if (
+    has(
+      /\b(alone|solo|single.?handed\w*|on your own|by yourself|(build|built|make|made|write|wrote|code|coded) (it|this|that|them|everything|all of (it|this|that)) yourself|your team|team size|how big is (your|the) team|how many people did you (manage|lead)|direct reports|who (do you work with|else worked|helped|built it)|ict team|chatgpt|claude|copilot|cursor (ai|ide|editor)|ai.?(assisted|generated|written)|ai (to|for) (code|coding|build\w*|develop\w*|write)|vibe.?cod\w*|pair.?program\w*)\b/,
+    )
+  )
+    return call("get_profile", "build", `section="build"`);
+
   // Named projects and companies. Open-source repos by name first, so their "live demo" isn't the OD Tracker demo.
   if (has(/\b(payments-ops\S*|redmine\S*|sms-balance\S*|nextjs-social\S*)/))
     return call("get_projects", "open_source", `domain="open_source"`);
@@ -299,8 +308,6 @@ export function route(question, followUp = null) {
     return call("get_projects", "ai", `domain="ai"`);
   if (has(/\byears?\b|how long have you|\b(senior|seniority)\b|\b(your|what) level\b|your (job )?title/))
     return call("get_experience", "all", `company="all"`);
-  if (has(/\b(your team|team size|how big is (your|the) team|who do you work with)\b/))
-    return call("get_experience", "padakhep", `company="Padakhep"`);
   if (
     has(
       /\b(impact|biggest|proud|achievements?|accomplish\w*|results?|numbers|metrics?|largest|scale|how (big|much|many)|datasets?)\b/,

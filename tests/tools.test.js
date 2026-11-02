@@ -6,6 +6,8 @@ import { DETAILS, PROJECTS, SKILLS } from "../js/agent/knowledge.js";
 import { route } from "../js/agent/router.js";
 import { TOOLS } from "../js/agent/tools.js";
 import { describeCall } from "../js/agent/trace.js";
+import { findUnsupportedClaims } from "../js/agent/guard.js";
+import { htmlToText } from "../js/agent/llm-tools.js";
 
 describe("knowledge", () => {
   it("backs every skill with at least one piece of evidence", () => {
@@ -28,6 +30,16 @@ describe("tools", () => {
       const html = TOOLS.get_contact(topic);
       for (const detail of [EMAIL, PHONE, CV_URL]) assert.ok(html.includes(detail), `${topic}: ${detail}`);
     }
+  });
+
+  it("returns only text the guardrail accepts when the model repeats it word for word", () => {
+    const outputs = [
+      ...Object.keys(PROJECTS).map((domain) => TOOLS.get_projects(domain)),
+      ...Object.keys(DETAILS).map((name) => TOOLS.get_projects({ name })),
+      ...[null, "pitch", "stack", "roles", "build"].map((section) => TOOLS.get_profile(section)),
+      ...SKILLS.map((skill) => TOOLS.find_evidence(skill)),
+    ].map(htmlToText);
+    for (const text of outputs) assert.deepEqual(findUnsupportedClaims(text, [text]), [], text.slice(0, 60));
   });
 
   it("escapes visitor text it repeats back", () => {
