@@ -4,6 +4,8 @@ export const EMAIL = "rabbins.eng@gmail.com";
 export const PHONE = "+880 1904-271946";
 export const TEL = "tel:+8801904271946";
 export const CV_URL = "assets/Nur-Mohammad-Siddiq-CV.pdf";
+// The name the CV saves as when downloaded (the URL above stays the same, so shared links keep working).
+export const CV_FILENAME = "Nur Mohammad Siddiq.pdf";
 export const WHATSAPP_URL = "https://wa.me/8801904271946?text=Hi%20Nur%2C%20I%20saw%20your%20portfolio";
 
 // Cloudflare Worker that runs the Gemini agent (see worker/). Empty = rule-based agent only.

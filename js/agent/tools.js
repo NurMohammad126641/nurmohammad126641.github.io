@@ -1,7 +1,7 @@
 // The agent's tools. Each one takes the argument the router picked and returns HTML
 // built only from knowledge.js, so the agent can't say anything that isn't in my profile.
 
-import { CV_URL, EMAIL, LINKS, PHONE, TEL, WHATSAPP_URL } from "../config.js";
+import { CV_FILENAME, CV_URL, EMAIL, LINKS, PHONE, TEL, WHATSAPP_URL } from "../config.js";
 import { escapeHtml, link, list } from "../lib/html.js";
 import { DETAILS, EXPERIENCE, PROJECTS, STACK } from "./knowledge.js";
 
@@ -57,5 +57,5 @@ export const TOOLS = {
   get_contact: (topic) =>
     (CONTACT_INTRO[topic] ?? "") +
     `<p>Email ${link("mailto:" + EMAIL, EMAIL)}, call <a href="${TEL}">${PHONE}</a>, or ${link(WHATSAPP_URL, "message me on WhatsApp")}.</p>` +
-    `<p>My CV: <a href="${CV_URL}" download>download the PDF</a>. I'm also on ${link(LINKS.linkedin, "LinkedIn")} and ${link(LINKS.github, "GitHub")}.</p>`,
+    `<p>My CV: <a href="${CV_URL}" download="${CV_FILENAME}">download the PDF</a>. I'm also on ${link(LINKS.linkedin, "LinkedIn")} and ${link(LINKS.github, "GitHub")}.</p>`,
 };

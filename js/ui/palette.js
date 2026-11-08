@@ -1,6 +1,6 @@
 // Command palette (Ctrl/Cmd + K): jump to a section or run a quick action.
 
-import { CV_URL, EMAIL, LINKS, PHONE, TEL, WHATSAPP_URL } from "../config.js";
+import { CV_FILENAME, CV_URL, EMAIL, LINKS, PHONE, TEL, WHATSAPP_URL } from "../config.js";
 import { $, reduceMotion } from "../lib/dom.js";
 import { copyEmail } from "./contact.js";
 import { toggleTheme } from "./theme.js";
@@ -12,7 +12,7 @@ const openTab = (url) => () => window.open(url, "_blank", "noopener");
 function downloadCv() {
   const a = document.createElement("a");
   a.href = CV_URL;
-  a.download = "";
+  a.download = CV_FILENAME;
   document.body.appendChild(a);
   a.click();
   a.remove();
