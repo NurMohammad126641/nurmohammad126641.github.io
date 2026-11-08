@@ -23,5 +23,6 @@ export const LINKS = {
   demoReporting: "https://youtu.be/M6PpXh8aGFY",
   demoMonitor: "https://youtu.be/pxd4tlJWejA",
   paymentsDemo: "https://nurmohammad126641.github.io/payments-ops-monitoring/",
+  lookerDashboard: "https://lookerstudio.google.com/reporting/69917f8d-272c-4c04-b975-4005c7c7cd01",
   redmineDemo: "https://nurmohammad126641.github.io/redmine-issue-reporter/",
 };

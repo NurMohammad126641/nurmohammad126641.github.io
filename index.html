@@ -355,6 +355,7 @@
             <p class="section-lead">
               The code for these lives on private company servers, so here are the stories, the architecture
               and the proof.
+              <a class="proof-link" href="#live-dashboard">One you can open live →</a>
             </p>
           </div>
           <figure
@@ -925,6 +926,84 @@
           </div>
         </article>
 
+        <article class="case case-wide reveal" id="live-dashboard">
+          <a
+            class="case-media fit media-link"
+            href="https://lookerstudio.google.com/reporting/69917f8d-272c-4c04-b975-4005c7c7cd01"
+            target="_blank"
+            rel="noopener"
+            aria-label="Open the live Payments KPI and Fraud Monitor dashboard in Looker Studio (opens in a new tab)"
+          >
+            <span class="browser-bar" aria-hidden="true">
+              <span class="bb-dots"><i></i><i></i><i></i></span>
+              <span class="bb-url">lookerstudio.google.com · Payments KPI &amp; Fraud Monitor</span>
+              <span class="live-tag"><i></i>Live · click to explore</span>
+            </span>
+            <img
+              src="assets/img/looker-payments-fraud.jpg"
+              alt="Looker Studio 'Payments Pulse' page: six KPI cards, daily transaction value by provider as stacked bars, failure rate per provider against a 3% target with Rocket above it, and the top reasons payments fail (demo data)."
+              loading="lazy"
+              width="1600"
+              height="716"
+            />
+            <span class="media-tag">Demo data</span>
+          </a>
+          <div class="case-body">
+            <div class="wide-intro">
+              <p class="case-kicker"><span class="k-bi">BI</span> TallyKhata · 2024 – 2025</p>
+              <h3>Payments KPI &amp; Fraud Monitor</h3>
+              <p class="case-one">
+                My TallyKhata payments dashboards, rebuilt on demo data. Open it, filter it, hover anything.
+              </p>
+              <a
+                class="btn btn-primary"
+                href="https://lookerstudio.google.com/reporting/69917f8d-272c-4c04-b975-4005c7c7cd01"
+                target="_blank"
+                rel="noopener"
+              >
+                <svg class="stroke" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5" />
+                </svg>
+                Open the live dashboard
+              </a>
+            </div>
+            <div class="wide-story">
+              <details class="story" open>
+                <summary>Read the full story</summary>
+                <dl class="psr">
+                  <div>
+                    <dt>At TallyKhata</dt>
+                    <dd>
+                      I built KPI and fraud-detection dashboards on live production data. Python and SQL
+                      pulled the numbers, the Google Sheets API fed them to Looker Studio. Financial and
+                      transaction visibility improved by 80%.
+                    </dd>
+                  </div>
+                  <div>
+                    <dt>What you can explore</dt>
+                    <dd>
+                      <b>Payments Pulse</b>: volume, success rate, why payments fail, and an hourly radar that
+                      flags outages. <b>Fraud Radar</b>: five detection rules, how many alerts each one
+                      raises, how many turn out real, and how fast they get reviewed.
+                    </dd>
+                  </div>
+                  <div>
+                    <dt>The data</dt>
+                    <dd>Synthetic: 60 days, 5 providers, generated with Python. No real customer data.</dd>
+                  </div>
+                </dl>
+              </details>
+              <ul class="tags">
+                <li>Looker Studio</li>
+                <li>Python</li>
+                <li>SQL</li>
+                <li>Google Sheets API</li>
+                <li>Fraud rules</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+
         <div class="mini-grid">
           <article class="mini reveal">
             <p class="case-kicker"><span class="k-data">Data</span> In progress</p>
@@ -1108,6 +1187,7 @@
                 <li>
                   Built KPI and fraud-detection dashboards using live production database data, Python, SQL,
                   Looker Studio, and Google Sheets API, improving financial and transaction visibility by 80%.
+                  <a class="proof-link" href="#live-dashboard">See the live demo →</a>
                 </li>
                 <li>
                   Supported Bangla QR payment operations serving 100K+ merchants across NPSB, bKash, Rocket,

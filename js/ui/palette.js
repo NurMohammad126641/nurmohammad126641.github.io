@@ -47,6 +47,7 @@ const COMMANDS = [
   { label: "Message me on WhatsApp", hint: "Link", run: openTab(WHATSAPP_URL) },
   { label: "Open LinkedIn", hint: "Link", run: openTab(LINKS.linkedin) },
   { label: "Open GitHub", hint: "Link", run: openTab(LINKS.github) },
+  { label: "Open live dashboard: payments KPI & fraud", hint: "Link", run: openTab(LINKS.lookerDashboard) },
   { label: "Open live demo: payments monitoring", hint: "Link", run: openTab(LINKS.paymentsDemo) },
   { label: "Switch light / dark theme", hint: "Action", run: toggleTheme },
 ];
