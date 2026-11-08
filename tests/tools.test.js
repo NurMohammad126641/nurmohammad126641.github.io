@@ -55,6 +55,8 @@ describe("trace", () => {
     "Do you know Tableau?",
     "Do you know Java?",
     "Tell me about the chatbot",
+    "Do you have any proof?",
+    "Do you know Looker Studio?",
     "Fintech experience?",
     "Where are you based?",
     "What's your education?",
@@ -67,5 +69,31 @@ describe("trace", () => {
         assert.ok(working && done && !working.includes("undefined") && !done.includes("undefined"), question);
       }
     }
+  });
+});
+
+describe("live dashboard", () => {
+  const LOOKER = "https://lookerstudio.google.com/reporting/69917f8d-272c-4c04-b975-4005c7c7cd01";
+
+  it("links the live dashboard wherever someone asks for proof, Looker Studio, fraud or TallyKhata", () => {
+    for (const question of [
+      "Do you have any proof?",
+      "Do you have a live demo?",
+      "Do you know Looker Studio?",
+      "Any experience with fraud?",
+      "Tell me about TallyKhata",
+      "Show me a case study",
+    ]) {
+      const html = route(question)
+        .calls.map((c) => TOOLS[c.tool](c.arg))
+        .join("");
+      assert.ok(html.includes(LOOKER), question);
+    }
+  });
+
+  it("lets the model repeat the dashboard link and its numbers", () => {
+    const source = htmlToText(TOOLS.get_projects({ name: "payments" }));
+    const answer = `I rebuilt my TallyKhata KPI and fraud dashboards in Looker Studio: [open it](${LOOKER}). Visibility improved by 80%, and the demo covers 60 days.`;
+    assert.deepEqual(findUnsupportedClaims(answer, [source]), []);
   });
 });

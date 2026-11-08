@@ -11,6 +11,7 @@ const AREA = {
   impact: "biggest results",
   open_source: "open-source code",
   featured: "best projects",
+  proof: "live demos and proof links",
 };
 const COMPANY = { padakhep: "Padakhep", tallykhata: "TallyKhata" };
 

@@ -155,8 +155,16 @@ const FOLLOW_UP = {
   bi: "metabase",
   impact: "overdue",
   padakhep: "overdue",
+  tallykhata: "payments",
+  proof: "payments",
   all: "overdue",
 };
+
+// Asking for proof or something to click: the live dashboard, demo videos, posts and code.
+const LIVE_DEMO =
+  /\b(live demos?|demos? (i|we) can (try|click|use|open)|(something|anything) (i|we) can (click|try|open|play with)|try (it|something) (live|yourself)|see (it|them|your work) live)\b/;
+const PROOF =
+  /\b(proofs?|prove (it|that)|evidence|work samples?|samples? of (your )?work|links? to (your )?work|show me (proof|evidence))\b/;
 
 export function followUpFor({ tool, arg }) {
   if (tool === "find_evidence") return arg.more ?? null;
@@ -281,6 +289,7 @@ export function route(question, followUp = null) {
   // Named projects and companies. Open-source repos by name first, so their "live demo" isn't the OD Tracker demo.
   if (has(/\b(payments-ops\S*|redmine\S*|sms-balance\S*|nextjs-social\S*)/))
     return call("get_projects", "open_source", `domain="open_source"`);
+  if (has(LIVE_DEMO)) return call("get_projects", "proof", `domain="proof"`);
   for (const key in DETAILS) if (has(DETAILS[key].match)) return projectDetail(key);
   if (
     has(
@@ -330,6 +339,7 @@ export function route(question, followUp = null) {
       })),
     };
   }
+  if (has(PROOF)) return call("get_projects", "proof", `domain="proof"`);
   for (const entry of NOT_YET) {
     const m = q.match(entry.match);
     if (m) {

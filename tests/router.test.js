@@ -47,6 +47,14 @@ describe("route", () => {
     ["Can it answer in Banglish?", 'get_projects(name="AI Analytics Chatbot")'],
     ["Tell me about your weekly report automation", 'get_projects(name="Branch Report Automation Engine")'],
     ["Tell me about yourself", "get_profile()"],
+    ["Do you know Looker Studio?", 'get_projects(name="Payments KPI & Fraud Monitor")'],
+    ["Tell me about your fraud detection dashboards", 'get_projects(name="Payments KPI & Fraud Monitor")'],
+    ["Can I see a dashboard demo?", 'get_projects(name="Payments KPI & Fraud Monitor")'],
+    ["Do you have a live demo?", 'get_projects(domain="proof")'],
+    ["Do you have any proof?", 'get_projects(domain="proof")'],
+    ["Can you share work samples?", 'get_projects(domain="proof")'],
+    ["Any experience with fraud?", 'find_evidence(skill="Fraud monitoring")'],
+    ["Tell me about TallyKhata", 'get_experience(company="TallyKhata")'],
   ];
   for (const [question, expected] of cases) {
     it(`${question} → ${expected}`, () => assert.deepEqual(callsFor(question), [expected]));
@@ -57,6 +65,17 @@ describe("route", () => {
       'find_evidence(skill="Django & DRF")',
       'find_evidence(skill="PostgreSQL")',
     ]);
+  });
+
+  it("keeps skill proof questions on the skill", () => {
+    assert.deepEqual(callsFor("Any proof of Django?"), ['find_evidence(skill="Django & DRF")']);
+  });
+
+  it("opens the live dashboard after TallyKhata or proof answers", () => {
+    assert.equal(followUpFor({ tool: "get_experience", arg: "tallykhata" }), "payments");
+    assert.equal(followUpFor({ tool: "get_projects", arg: "proof" }), "payments");
+    assert.equal(followUpFor(firstCall("Do you know Looker Studio?")), null);
+    assert.equal(followUpFor(firstCall("Any experience with fraud?")), "payments");
   });
 
   it("lets a specific skill replace a broader one", () => {

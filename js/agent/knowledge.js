@@ -21,7 +21,7 @@ export const PROJECTS = {
   ],
   bi: [
     `<b>Microfinance Operations Dashboard</b>: Metabase on a partitioned PostgreSQL warehouse that syncs from production every 10 minutes, replacing 10+ Excel files for 50+ executives. Tracks portfolio health, collections vs target, disbursements and zones. ${link(LINKS.metabasePost, "LinkedIn post")}`,
-    `<b>KPI and fraud-detection dashboards</b> at TallyKhata (Python, SQL, Looker Studio, Google Sheets API): +80% visibility into transactions.`,
+    `<b>KPI and fraud-detection dashboards</b> at TallyKhata (Python, SQL, Looker Studio, Google Sheets API): +80% visibility into transactions. Rebuilt on demo data so you can try it: ${link(LINKS.lookerDashboard, "open the live dashboard")}`,
     `I also use <b>Power BI</b> at Padakhep, plus Excel with Power Query.`,
   ],
   featured: [
@@ -29,7 +29,14 @@ export const PROJECTS = {
     `<b>AI Analytics Chatbot</b>: plain-English questions in, charts out in 5–10 seconds, with Gemini function calling.`,
     `<b>Branch Report Automation Engine</b>: 7 staff × 2–3 days of manual work → under 2 hours, 100% accurate.`,
     `<b>Microfinance Operations Dashboard</b>: one live Metabase screen replaced 10+ Excel files for 50+ executives.`,
+    `<b>Payments KPI &amp; Fraud Monitor</b>: my TallyKhata payments and fraud dashboards, rebuilt in Looker Studio on demo data. ${link(LINKS.lookerDashboard, "Open the live dashboard")}`,
     `Ask about any of them for the full story.`,
+  ],
+  proof: [
+    `<b>Live dashboard you can click through</b>: the Payments KPI &amp; Fraud Monitor, my TallyKhata payments and fraud dashboards rebuilt in Looker Studio on demo data. ${link(LINKS.lookerDashboard, "Open the live dashboard")}`,
+    `<b>Demo videos</b> of the Overdue Tracking Platform, which 4,000+ staff use across 406 branches (demo data): ${link(LINKS.demoTour, "full tour")}, ${link(LINKS.demoMobile, "mobile")}, ${link(LINKS.demoReporting, "reporting dashboard")}.`,
+    `<b>LinkedIn posts</b> on the ${link(LINKS.chatbotPost, "AI Analytics Chatbot")} and the ${link(LINKS.metabasePost, "Microfinance Operations Dashboard")}.`,
+    `<b>Open-source code</b> on ${link(LINKS.github, "GitHub")}, with tests in CI.`,
   ],
   impact: [
     `<b>406 branches, 4,000+ users</b> on the Overdue Tracking Platform I built solo: 10–15K visits and ৳2–3 million in borrower collections recorded every day.`,
@@ -49,6 +56,20 @@ export const PROJECTS = {
 
 // One project in depth, for get_projects({ name }).
 export const DETAILS = {
+  // Before "overdue", so "dashboard demo" opens this rather than the OD Tracker videos.
+  payments: {
+    title: "Payments KPI & Fraud Monitor",
+    match:
+      /looker|data studio|fraud[- ](detection|dashboards?|monitor\w*|rules?|radar|alerts?)|kpi dashboards?|payments? (kpi|dashboards?|monitor\w*)|live dashboards?|dashboard (demo|link|url)|demo dashboards?|interactive dashboards?|tallykhata dashboards?/,
+    html: `<p><b>Payments KPI &amp; Fraud Monitor</b>: at TallyKhata I built KPI and fraud-detection dashboards on live production data, which improved financial and transaction visibility by <b>80%</b>. I rebuilt them in Looker Studio on demo data, so you can click through them: ${link(LINKS.lookerDashboard, "open the live dashboard")}.</p>${list(
+      [
+        "<b>How it worked at TallyKhata</b>: Python and SQL pulled the numbers from the production databases, and the Google Sheets API fed them to Looker Studio.",
+        "<b>Payments Pulse</b>: transactions, value, success rate and failures by provider (bKash, Nagad, Rocket, NPSB and cards), the top reasons payments fail, and an hourly radar that flags outages against the usual level.",
+        "<b>Fraud Radar</b>: five detection rules, how many alerts each one raises, how many turn out to be real fraud, the amount blocked and how fast alerts get reviewed.",
+        "<b>Demo data</b>: synthetic, 60 days, generated with Python. No real customer data.",
+      ],
+    )}<p>It's also on this page: <a href="#live-dashboard">see the dashboard card</a>.</p>`,
+  },
   overdue: {
     title: "Overdue Tracking Platform",
     match:
@@ -136,7 +157,7 @@ export const EXPERIENCE = {
       "Resolved payment disputes on live PostgreSQL/MySQL production data, and automated routine ones",
       "KPI and fraud dashboards (+80% visibility); monitoring and alerting (−40% downtime)",
     ],
-  )}`,
+  )}<p>The dashboards, rebuilt on demo data: ${link(LINKS.lookerDashboard, "open the live dashboard")}.</p>`,
 };
 
 // Skills with evidence. `more` is the project a follow-up ("tell me more") opens;
@@ -195,7 +216,11 @@ export const SKILLS = [
   {
     match: /looker|data studio/,
     name: "Looker Studio",
-    evidence: ["KPI and fraud-detection dashboards at TallyKhata (+80% visibility)"],
+    more: "payments",
+    evidence: [
+      "KPI and fraud-detection dashboards at TallyKhata (+80% visibility)",
+      `Rebuilt on demo data so you can try it: ${link(LINKS.lookerDashboard, "the live Payments KPI &amp; Fraud Monitor")}`,
+    ],
   },
   {
     match: /bigquery/,
@@ -271,16 +296,20 @@ export const SKILLS = [
     match: /google sheets|sheets api|gsheets/,
     name: "Google Sheets API",
     covers: "REST APIs",
+    more: "payments",
     evidence: [
       "KPI and fraud-detection dashboards at TallyKhata used the Google Sheets API with Python and SQL (+80% visibility)",
+      `Rebuilt on demo data: ${link(LINKS.lookerDashboard, "open the live dashboard")}`,
     ],
   },
   {
     match: /fraud/,
     name: "Fraud monitoring",
+    more: "payments",
     evidence: [
       "Built fraud-detection dashboards on live production data at TallyKhata",
       "Real-time alerts for service health and financial thresholds (−40% downtime)",
+      `Rebuilt on demo data: ${link(LINKS.lookerDashboard, "open the live Fraud Radar")}`,
     ],
   },
   {

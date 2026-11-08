@@ -23,7 +23,7 @@ export const TOOL_DECLARATIONS = [
     type: "function",
     name: "get_projects",
     description:
-      "Nur's work. Pass 'domain' for a list (ai, data, backend, bi, impact = biggest results, open_source, featured = best projects), or 'project' for one project in depth: overdue (Overdue Tracking Platform, also called OD Tracker 2.0, with its demo videos, mobile version, OD Monitor and reporting dashboard), report (Branch Report Automation Engine: pulls all 406 branches from the MIS through its internal REST API), chatbot (AI Analytics Chatbot), metabase (Microfinance Operations Dashboard), warehouse (Central PostgreSQL Data Warehouse).",
+      "Nur's work. Pass 'domain' for a list (ai, data, backend, bi, impact = biggest results, open_source, featured = best projects, proof = links a visitor can open: the live dashboard, demo videos, LinkedIn posts and code), or 'project' for one project in depth: payments (Payments KPI & Fraud Monitor: Nur's TallyKhata KPI and fraud-detection dashboards rebuilt in Looker Studio on demo data, with a live dashboard link), overdue (Overdue Tracking Platform, also called OD Tracker 2.0, with its demo videos, mobile version, OD Monitor and reporting dashboard), report (Branch Report Automation Engine: pulls all 406 branches from the MIS through its internal REST API), chatbot (AI Analytics Chatbot), metabase (Microfinance Operations Dashboard), warehouse (Central PostgreSQL Data Warehouse).",
     parameters: {
       type: "object",
       properties: {

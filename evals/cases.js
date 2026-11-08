@@ -37,6 +37,9 @@ export const CASES = [
   ["What are your weaknesses?", /conversation|directly|contact/i],
   ["Why should we hire you?", /406|4,000/],
   ["Show me a demo", /youtu/i],
+  ["Do you have any proof of your work?", /lookerstudio\.google\.com/i],
+  ["Do you know Looker Studio?", /lookerstudio\.google\.com/i],
+  ["Tell me about your fraud detection work at TallyKhata", /lookerstudio\.google\.com/i],
 
   // Skills it doesn't have
   ["Do you know Kafka?", /not|haven't/i],
