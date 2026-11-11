@@ -213,6 +213,17 @@ export function route(question, followUp = null) {
       note: "Not something I share",
     };
   }
+  // "Why are you leaving / looking?" about the current job gets the one approved answer.
+  // Earlier jobs (TallyKhata) and other personal questions still go to Nur in person.
+  if (
+    !has(/\b(tallykhata|progoti)\b/) &&
+    (has(
+      /\b(why (are|is|would|do|does) (you|he|nur) (even )?(leav\w*|look\w*|want\w* (to )?(leave|move|change|switch|a new)|chang\w*|switch\w*|mov\w*|quit\w*|search\w*|hunt\w*)|why (look\w*|search\w*|hunt\w*) for (a )?(new|another) (job|role)|reasons? (for|to) (leav\w*|mov\w*|chang\w*|switch\w*|look\w*)|why (a |the )?(new|next|another) (job|role|position|company))\b/,
+    ) ||
+      (has(/\b(padakhep|current (job|role|company|employer))\b/) &&
+        has(/\b(leav\w*|left|quit\w*|switch\w*|chang\w*|mov\w*|resign\w*)\b/)))
+  )
+    return call("get_profile", "move", `section="move"`);
   if (
     has(
       /\b(weakness\w*|a time (when )?you (failed|made a mistake)|your (biggest )?(failures?|mistakes?)|conflicts?|handle (pressure|stress|deadlines)|hobb(y|ies)|married|how old|your age|why (did|do|would) you (leave|left|quit|switch|change)\w*|leaving (your|tallykhata|padakhep))\b/,

@@ -1,4 +1,5 @@
-// The chat window: shows each question, the tool calls behind the answer, then the answer.
+// The chat window (inside the floating chat bubble): shows each question, the tool calls behind the
+// answer, then the answer. Loaded on the first open, so it costs nothing until a visitor wants it.
 
 import { AGENT_API_URL } from "../config.js";
 import { $, $$, reduceMotion, sleep } from "../lib/dom.js";
@@ -184,7 +185,12 @@ export function initChat() {
     }
   }
 
-  suggestions.innerHTML = chips(SUGGESTIONS);
+  const setSuggestions = (labels) => {
+    suggestions.innerHTML = chips(labels && labels.length ? labels : SUGGESTIONS);
+    suggestions.scrollLeft = 0;
+  };
+
+  setSuggestions(SUGGESTIONS);
   suggestions.addEventListener("click", (e) => {
     const button = e.target.closest("button");
     if (button) ask(button.textContent);
@@ -202,6 +208,8 @@ export function initChat() {
 
   addMessage(
     "bot",
-    `<div class="answer"><p>Hi, I'm Nur's AI agent. I answer as Nur, using only real facts from Nur's profile. Ask anything, or tap a question below.</p></div>`,
+    `<div class="answer"><p>Hi 👋 I'm Nur's AI assistant. I answer as Nur, using only real facts from Nur's work. Ask me anything, or tap a question below.</p></div>`,
   );
+
+  return { ask, setSuggestions, isBusy: () => busy };
 }

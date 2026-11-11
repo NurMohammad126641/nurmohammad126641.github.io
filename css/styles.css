@@ -745,58 +745,6 @@ kbd {
   grid-template-columns: 1.6fr 1fr;
   gap: 22px;
 }
-.agent-term {
-  border-radius: 20px;
-  border: 1px solid var(--line-2);
-  background: #050a14;
-  box-shadow:
-    var(--shadow),
-    0 0 0 1px rgba(34, 211, 238, 0.05);
-  display: flex;
-  flex-direction: column;
-  min-height: 470px;
-  overflow: hidden;
-  color: #dbe6f5;
-}
-.term-bar {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 12px 16px;
-  border-bottom: 1px solid rgba(148, 197, 255, 0.14);
-  background: rgba(255, 255, 255, 0.03);
-}
-.dots3 {
-  display: flex;
-  gap: 6px;
-}
-.dots3 i {
-  width: 11px;
-  height: 11px;
-  border-radius: 50%;
-  background: #334155;
-}
-.dots3 i:nth-child(1) {
-  background: #f87171;
-}
-.dots3 i:nth-child(2) {
-  background: #fbbf24;
-}
-.dots3 i:nth-child(3) {
-  background: #34d399;
-}
-.term-title {
-  font: 600 13px var(--mono);
-  color: #93a4bf;
-}
-.term-badge {
-  margin-left: auto;
-  font: 600 11.5px var(--font);
-  color: #67e8f9;
-  background: rgba(34, 211, 238, 0.12);
-  padding: 4px 10px;
-  border-radius: 999px;
-}
 .term-log {
   flex: 1;
   overflow-y: auto;
@@ -987,10 +935,6 @@ kbd {
   border-top: 1px solid rgba(148, 197, 255, 0.14);
   padding: 10px 12px 10px 18px;
 }
-.term-input .prompt {
-  font: 700 18px var(--mono);
-  color: #22d3ee;
-}
 .term-input input {
   flex: 1;
   background: transparent;
@@ -1060,6 +1004,382 @@ kbd {
   border-color: var(--c1);
   box-shadow: 0 0 0 3px var(--glow-a);
 }
+
+/* "Try it" card in the agent section: the chat itself lives in the floating bubble */
+.agent-cta {
+  display: grid;
+  align-content: start;
+  gap: 18px;
+  padding: 26px;
+  border-radius: 20px;
+  border: 1px solid var(--line-2);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+.agent-cta p {
+  margin: 0;
+  color: var(--ink-2);
+}
+.cta-person {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.cta-person b {
+  display: block;
+  font-size: 17px;
+}
+.cta-person span {
+  font-size: 13.5px;
+  color: var(--muted);
+}
+.cta-avatar,
+.chat-avatar {
+  position: relative;
+  flex: none;
+  display: block;
+}
+.cta-avatar img,
+.chat-avatar img {
+  display: block;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: 50% 18%;
+}
+.online {
+  position: absolute;
+  right: 1px;
+  bottom: 1px;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: #22c55e;
+  border: 2px solid var(--bg);
+}
+.cta-try {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.cta-try button {
+  font: 600 13.5px var(--font);
+  color: var(--ink);
+  background: var(--surface-2);
+  border: 1px solid var(--line-2);
+  border-radius: 999px;
+  padding: 8px 14px;
+  cursor: pointer;
+  transition:
+    border-color 0.2s,
+    color 0.2s;
+}
+.cta-try button:hover {
+  border-color: var(--c1);
+  color: var(--c1);
+}
+.cta-open {
+  justify-self: start;
+  border: 0;
+  cursor: pointer;
+  font: inherit;
+}
+
+/* ---------- Floating chat bubble ---------- */
+.chatdock {
+  position: fixed;
+  z-index: 80;
+  right: 24px;
+  bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 14px;
+  pointer-events: none;
+}
+.chatdock > * {
+  pointer-events: auto;
+}
+.chat-launcher {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  padding: 3px;
+  border: 0;
+  border-radius: 50%;
+  cursor: pointer;
+  background: linear-gradient(135deg, var(--c1), var(--c2));
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.35),
+    0 0 0 0 color-mix(in srgb, var(--c1) 45%, transparent);
+  transition:
+    transform 0.2s ease,
+    opacity 0.25s ease;
+  animation: launcher-pulse 2.4s ease-out 4s 3;
+}
+.chat-launcher:hover {
+  transform: scale(1.06);
+}
+.chat-launcher img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: 50% 18%;
+  border: 2px solid var(--bg);
+  transition: filter 0.2s;
+}
+.chat-launcher .online {
+  right: 2px;
+  bottom: 2px;
+  width: 15px;
+  height: 15px;
+  border-width: 3px;
+}
+.launcher-x {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 28px;
+  height: 28px;
+  fill: none;
+  stroke: #fff;
+  stroke-width: 2.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.chat-launcher[aria-expanded="true"] img {
+  filter: brightness(0.45) saturate(0.6);
+}
+.chat-launcher[aria-expanded="true"] .launcher-x {
+  opacity: 1;
+}
+.chat-launcher[aria-expanded="true"] .online {
+  opacity: 0;
+}
+@keyframes launcher-pulse {
+  0% {
+    box-shadow:
+      0 10px 30px rgba(0, 0, 0, 0.35),
+      0 0 0 0 color-mix(in srgb, var(--c1) 50%, transparent);
+  }
+  100% {
+    box-shadow:
+      0 10px 30px rgba(0, 0, 0, 0.35),
+      0 0 0 18px color-mix(in srgb, var(--c1) 0%, transparent);
+  }
+}
+
+/* The one-time hello */
+.chat-teaser {
+  display: flex;
+  align-items: flex-start;
+  gap: 2px;
+  max-width: 270px;
+  padding: 12px 8px 12px 16px;
+  border-radius: 18px 18px 4px 18px;
+  background: var(--bg-2);
+  border: 1px solid var(--line-2);
+  box-shadow: var(--shadow);
+  animation: teaser-in 0.35s ease-out;
+}
+.chat-teaser[hidden] {
+  display: none;
+}
+.teaser-open {
+  flex: 1;
+  border: 0;
+  background: none;
+  padding: 0;
+  text-align: left;
+  cursor: pointer;
+  font: 600 14.5px/1.45 var(--font);
+  color: var(--ink);
+}
+.teaser-x {
+  flex: none;
+  width: 26px;
+  height: 26px;
+  margin-top: -4px;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  cursor: pointer;
+  font-size: 18px;
+  line-height: 1;
+  color: var(--muted);
+}
+.teaser-x:hover {
+  background: var(--surface-2);
+  color: var(--ink);
+}
+@keyframes teaser-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.96);
+  }
+}
+@keyframes teaser-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+/* The chat window: always dark, like a messenger in dark mode */
+.chat-panel {
+  display: flex;
+  flex-direction: column;
+  width: 390px;
+  height: min(640px, calc(100vh - 128px));
+  border-radius: 22px;
+  overflow: hidden;
+  color: #dbe6f5;
+  background: #060c18;
+  border: 1px solid rgba(148, 197, 255, 0.2);
+  box-shadow:
+    0 24px 70px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(34, 211, 238, 0.05);
+  transform-origin: 100% 100%;
+  opacity: 0;
+  transform: translateY(12px) scale(0.97);
+  transition:
+    opacity 0.22s ease,
+    transform 0.22s ease;
+}
+.chat-panel.in {
+  opacity: 1;
+  transform: none;
+}
+.chat-panel[hidden] {
+  display: none;
+}
+.chat-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 14px 14px 16px;
+  background: linear-gradient(135deg, rgba(34, 211, 238, 0.16), rgba(129, 140, 248, 0.16));
+  border-bottom: 1px solid rgba(148, 197, 255, 0.14);
+}
+.chat-avatar img {
+  width: 42px;
+  height: 42px;
+}
+.chat-avatar .online {
+  width: 12px;
+  height: 12px;
+  border-color: #0b1426;
+}
+.chat-who {
+  min-width: 0;
+}
+.chat-who b {
+  display: block;
+  font-size: 15.5px;
+  color: #fff;
+}
+.chat-who span {
+  font-size: 12.5px;
+  color: #93a4bf;
+}
+.chat-close {
+  margin-left: auto;
+  flex: none;
+  width: 38px;
+  height: 38px;
+  border: 0;
+  border-radius: 50%;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 255, 255, 0.07);
+}
+.chat-close:hover {
+  background: rgba(255, 255, 255, 0.14);
+}
+.chat-close svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: #dbe6f5;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+}
+.chat-panel .chat-log {
+  flex: 1;
+  min-height: 0;
+  max-height: none;
+  padding: 16px 14px 6px;
+}
+.chat-panel .chips {
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  padding: 4px 12px 10px;
+  scroll-padding: 0 12px;
+  scrollbar-width: none;
+}
+.chat-panel .chips::-webkit-scrollbar {
+  display: none;
+}
+.chat-panel .chips button {
+  flex: none;
+}
+.chat-panel .chat-input {
+  gap: 8px;
+  padding: 10px 10px 10px 12px;
+}
+.chat-panel .chat-input input {
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(148, 197, 255, 0.14);
+}
+.chat-panel .chat-input input:focus {
+  border-color: rgba(34, 211, 238, 0.55);
+}
+.chat-panel .chat-input button {
+  border-radius: 50%;
+  width: 42px;
+  height: 42px;
+  flex: none;
+}
+.chat-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 14px;
+  padding: 8px 16px 12px;
+  font-size: 12.5px;
+  color: #7f8ea8;
+  border-top: 1px solid rgba(148, 197, 255, 0.1);
+}
+.chat-foot a {
+  font-weight: 700;
+  color: #67e8f9;
+  text-decoration: none;
+}
+.chat-foot a:hover {
+  text-decoration: underline;
+}
+@media (prefers-reduced-motion: reduce) {
+  .chat-launcher,
+  .chat-teaser {
+    animation: none;
+  }
+  .chat-panel {
+    transition: none;
+  }
+}
+@media print {
+  .chatdock {
+    display: none;
+  }
+}
+
 .note {
   font-size: 13px;
   color: var(--muted);
@@ -2184,9 +2504,6 @@ kbd {
   .case h3 {
     font-size: 25px;
   }
-  .agent-term {
-    min-height: 430px;
-  }
   .proof-item b {
     font-size: 20px;
   }
@@ -2378,10 +2695,73 @@ summary {
       0 8px 24px var(--glow-a);
   }
   body.typing .dock,
-  .js body:not(.scrolled) .dock {
+  .js body:not(.scrolled) .dock,
+  body.chat-open .dock {
     transform: translateY(140%);
     opacity: 0;
     pointer-events: none;
+  }
+
+  /* Chat bubble on phones: the floating launcher shows on the first screen; once the tab bar slides
+     in, its "Ask AI" button is the way in, so there's only ever one. The chat opens full screen. */
+  .chatdock {
+    right: 14px;
+    bottom: calc(16px + env(safe-area-inset-bottom));
+  }
+  .chat-launcher {
+    width: 58px;
+    height: 58px;
+  }
+  .js body.scrolled .chat-launcher:not([aria-expanded="true"]) {
+    opacity: 0;
+    transform: scale(0.6);
+    pointer-events: none;
+  }
+  .js body.scrolled .chat-teaser {
+    position: fixed;
+    left: 50%;
+    bottom: calc(96px + env(safe-area-inset-bottom));
+    transform: translateX(-50%);
+    width: max-content;
+    max-width: calc(100vw - 32px);
+    border-radius: 18px;
+    animation-name: teaser-fade;
+  }
+  .js body.scrolled .chat-teaser::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -7px;
+    width: 12px;
+    height: 12px;
+    margin-left: -6px;
+    background: var(--bg-2);
+    border-right: 1px solid var(--line-2);
+    border-bottom: 1px solid var(--line-2);
+    transform: rotate(45deg);
+  }
+  .chat-panel {
+    position: fixed;
+    z-index: 95;
+    inset: 0;
+    width: auto;
+    height: 100vh;
+    height: 100dvh;
+    border-radius: 0;
+    border: 0;
+    transform-origin: 50% 100%;
+  }
+  .chat-head {
+    padding-top: calc(12px + env(safe-area-inset-top));
+  }
+  .chat-foot {
+    padding-bottom: calc(12px + env(safe-area-inset-bottom));
+  }
+  .chat-panel .chips button {
+    min-height: 40px;
+  }
+  body.chat-open {
+    overflow: hidden;
   }
 
   /* Hero: photo, name, pitch and both buttons fit the first screen */
@@ -2487,18 +2867,11 @@ summary {
   .agent {
     gap: 14px;
   }
-  .agent-term {
-    min-height: 0;
-    border-radius: 18px;
-  }
   .term-log {
     max-height: 360px;
     min-height: 220px;
     padding: 14px 14px 4px;
     font-size: 15px;
-  }
-  .term-title {
-    font-size: 12px;
   }
   .chips {
     flex-wrap: nowrap;

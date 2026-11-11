@@ -1,4 +1,4 @@
-import { initChat } from "./agent/chat.js";
+import { initChatBubble } from "./ui/chatbubble.js";
 import { initContact } from "./ui/contact.js";
 import { initDemo } from "./ui/demo.js";
 import { initNavigation } from "./ui/navigation.js";
@@ -13,5 +13,4 @@ initNavigation();
 initSpotlight();
 initContact();
 initDemo();
-initPalette();
-initChat();
+initPalette(initChatBubble());

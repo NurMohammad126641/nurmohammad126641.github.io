@@ -18,14 +18,14 @@ function downloadCv() {
   a.remove();
 }
 
+// Set by initPalette: opens the floating chat bubble.
+let openChat = () => {};
+
 const COMMANDS = [
   {
     label: "Ask my AI agent",
-    hint: "Section",
-    run: () => {
-      jumpTo("agent")();
-      setTimeout(() => $("#agent-q").focus({ preventScroll: true }), 500);
-    },
+    hint: "Chat",
+    run: () => openChat(),
   },
   { label: "Selected work", hint: "Section", run: jumpTo("work") },
   { label: "Open source", hint: "Section", run: jumpTo("open-source") },
@@ -52,7 +52,8 @@ const COMMANDS = [
   { label: "Switch light / dark theme", hint: "Action", run: toggleTheme },
 ];
 
-export function initPalette() {
+export function initPalette(chat = {}) {
+  if (chat.open) openChat = () => chat.open();
   const palette = $("#palette");
   const search = $("#palette-q");
   const results = $("#palette-list");
@@ -86,7 +87,7 @@ export function initPalette() {
 
   function close() {
     palette.hidden = true;
-    if (lastFocus) lastFocus.focus();
+    if (lastFocus) lastFocus.focus({ preventScroll: true });
   }
 
   function runCommand(i) {

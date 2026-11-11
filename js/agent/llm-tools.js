@@ -12,10 +12,12 @@ export const TOOL_DECLARATIONS = [
     type: "function",
     name: "get_profile",
     description:
-      "Nur's profile. 'about' is a short summary, 'pitch' gives three reasons to work with Nur, 'stack' lists all skills by group, 'roles' says what roles and projects Nur is open to, 'build' says how Nur works: which projects were built solo, what the ICT team did, and how Nur uses AI coding agents.",
+      "Nur's profile. 'about' is a short summary, 'pitch' gives three reasons to work with Nur, 'stack' lists all skills by group, 'roles' says what roles and projects Nur is open to, 'build' says how Nur works: which projects were built solo, what the ICT team did, and how Nur uses AI coding agents. 'move' is the only approved answer to why Nur is looking for a new role or would leave Padakhep or the current job.",
     parameters: {
       type: "object",
-      properties: { section: { type: "string", enum: ["about", "pitch", "stack", "roles", "build"] } },
+      properties: {
+        section: { type: "string", enum: ["about", "pitch", "stack", "roles", "build", "move"] },
+      },
       required: ["section"],
     },
   },

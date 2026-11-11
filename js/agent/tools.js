@@ -21,6 +21,9 @@ const PROFILE = {
   ])}`,
   stack: STACK,
   roles: `<p>I'm open to <b>new roles and projects</b> in data engineering, BI, and Python backend and automation, especially where AI is part of the work.</p><p>The easiest way to start: ${reachMe()}.</p>`,
+  // The only approved answer to "why are you leaving / looking?": true, positive, and it never
+  // announces a move (the current employer can read this site too) or guesses a reason.
+  move: `<p>I'm proud of what I've built at Padakhep: <b>OD Tracker 2.0 is the official system in 406 branches</b>, and I still add features and fix bugs there.</p><p>I'm open to the right next step: a role in data engineering, BI, or Python backend and automation, especially where AI is part of the work.</p><p>The details are better in a real conversation: ${reachMe()}.</p>`,
   about: `<p>I'm Nur Mohammad Siddiq, a <b>Data, BI &amp; Automation Engineer</b> in Dhaka with 2.5+ years of experience. I build data, backend and AI systems that people use every day: Python, Django, PostgreSQL, data pipelines, dashboards and AI agents, mostly for microfinance and fintech.</p><p>Right now I'm building a central PostgreSQL data warehouse at Padakhep.</p>`,
 };
 

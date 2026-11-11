@@ -25,6 +25,7 @@ export function describeCall({ tool, arg }) {
       if (arg === "stack") return ["Looking up Nur's skills", "Found Nur's skills and tools"];
       if (arg === "roles") return ["Looking up what Nur is open to", "Found what Nur is open to"];
       if (arg === "build") return ["Looking up how Nur works", "Found how Nur works"];
+      if (arg === "move") return ["Looking up Nur's next step", "Found Nur's answer about the next step"];
       return ["Looking up Nur's profile", "Found Nur's profile"];
 
     case "get_projects":

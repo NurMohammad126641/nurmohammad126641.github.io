@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 
 import { editDistance, fixTypos, followUpFor, route } from "../js/agent/router.js";
+import { TOOLS } from "../js/agent/tools.js";
 
 const firstCall = (question, followUp) => route(question, followUp)?.calls?.[0];
 const callsFor = (question) => route(question)?.calls?.map((c) => `${c.tool}(${c.argText})`);
@@ -106,6 +107,33 @@ describe("route", () => {
     ]) {
       assert.ok(route(question).reply, question);
     }
+  });
+
+  it("answers 'why are you leaving / looking' with the one approved answer", () => {
+    for (const question of [
+      "Why is he leaving Padakhep?",
+      "Why are you leaving Padakhep?",
+      "Why did you leave Padakhep?",
+      "Why are you looking for a new job?",
+      "Why do you want to change jobs?",
+      "Why do you want to leave your current job?",
+      "Reason for leaving?",
+      "Why a new role?",
+    ]) {
+      const result = route(question);
+      assert.ok(result && result.calls, question);
+      assert.equal(result.calls[0].tool, "get_profile", question);
+      assert.equal(result.calls[0].arg, "move", question);
+    }
+    // The answer never announces a move, guesses a reason or criticises anyone.
+    const answer = TOOLS.get_profile("move");
+    assert.doesNotMatch(
+      answer,
+      /\b(leaving|resign\w*|quit\w*|salary|boss|manager|unhappy|toxic|underpaid)\b/i,
+    );
+    assert.match(answer, /open to the right next step/);
+    // Open-to-work questions without "why" still get the roles answer.
+    assert.equal(route("Are you looking for a new job?").calls[0].arg, "roles");
   });
 
   it("sends personal and behavioural questions to Nur instead of guessing", () => {

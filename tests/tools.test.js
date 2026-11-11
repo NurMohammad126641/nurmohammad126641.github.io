@@ -36,7 +36,7 @@ describe("tools", () => {
     const outputs = [
       ...Object.keys(PROJECTS).map((domain) => TOOLS.get_projects(domain)),
       ...Object.keys(DETAILS).map((name) => TOOLS.get_projects({ name })),
-      ...[null, "pitch", "stack", "roles", "build"].map((section) => TOOLS.get_profile(section)),
+      ...[null, "pitch", "stack", "roles", "build", "move"].map((section) => TOOLS.get_profile(section)),
       ...SKILLS.map((skill) => TOOLS.find_evidence(skill)),
     ].map(htmlToText);
     for (const text of outputs) assert.deepEqual(findUnsupportedClaims(text, [text]), [], text.slice(0, 60));
