@@ -1496,6 +1496,28 @@ kbd {
   height: auto;
   object-fit: contain;
 }
+/* Full, uncropped product screenshot in an app window on a soft glow */
+.case-media.shot {
+  padding: 22px;
+  background:
+    radial-gradient(120% 80% at 0% 0%, var(--glow-a), transparent 62%),
+    radial-gradient(120% 80% at 100% 100%, var(--glow-b), transparent 62%),
+    var(--bg-2);
+}
+.shot-window {
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid var(--line-2);
+  background: #fbfcfe;
+  box-shadow:
+    0 28px 60px -28px rgba(2, 8, 23, 0.6),
+    0 2px 8px rgba(2, 8, 23, 0.16);
+}
+.shot-window > img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
 /* Full-width case with a clickable live demo */
 .case-wide {
   grid-template-columns: 1fr;
@@ -3046,6 +3068,12 @@ summary {
   }
   .case-media.fit > img {
     height: auto;
+  }
+  .case-media.shot {
+    padding: 12px;
+  }
+  .shot-window {
+    border-radius: 10px;
   }
   .diagram-media {
     padding: 12px 8px;
