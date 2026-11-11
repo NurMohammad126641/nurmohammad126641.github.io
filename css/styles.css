@@ -1499,10 +1499,8 @@ kbd {
 /* Full, uncropped product screenshot in an app window on a soft glow */
 .case-media.shot {
   padding: 22px;
-  background:
-    radial-gradient(120% 80% at 0% 0%, var(--glow-a), transparent 62%),
-    radial-gradient(120% 80% at 100% 100%, var(--glow-b), transparent 62%),
-    var(--bg-2);
+  background: radial-gradient(120% 80% at 0% 0%, var(--glow-a), transparent 62%),
+    radial-gradient(120% 80% at 100% 100%, var(--glow-b), transparent 62%), var(--bg-2);
 }
 .shot-window {
   border-radius: 14px;
