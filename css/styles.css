@@ -1516,6 +1516,11 @@ kbd {
   width: 100%;
   height: auto;
 }
+/* the label sits in the window's title bar, so it never covers the screenshot */
+.browser-bar .media-tag {
+  position: static;
+  flex: none;
+}
 /* Full-width case with a clickable live demo */
 .case-wide {
   grid-template-columns: 1fr;
