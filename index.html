@@ -82,7 +82,8 @@
           "Metabase",
           "LLM Integration",
           "AI Agents",
-          "n8n"
+          "n8n",
+          "Claude Code"
         ]
       }
     </script>
@@ -1167,10 +1168,11 @@
               <p class="t-org">Padakhep Manabik Unnayan Kendra | Microfinance NGO, Dhaka</p>
               <ul>
                 <li>
-                  Engineered and deployed a production-grade Overdue Tracking Platform using Django REST
-                  Framework, PostgreSQL, Celery, and Redis, with secure authentication and REST API
-                  integration—replacing manual Excel workflows across 406 branches and supporting 4,000+
-                  users. <a class="demo-link" href="#demo">Watch the demo</a>
+                  As sole engineer, architected and shipped a production-grade Overdue Tracking Platform
+                  (Django REST Framework, PostgreSQL, Celery, Redis, nginx, PgBouncer) using Claude Code as an
+                  AI pair-programmer—replacing SharePoint/Excel tracking across 406 branches for 4,000+ users
+                  and cutting heavy page loads from 10s+ to under 1s.
+                  <a class="demo-link" href="#demo">Watch the demo</a>
                 </li>
                 <li>
                   Shipped an AI-powered analytics chatbot (Gemini, agentic workflows) inside the reporting
@@ -1183,8 +1185,9 @@
                   cutting a 2–3 day manual process to typically under 2 hours.
                 </li>
                 <li>
-                  Developing Python-based ETL/ELT pipelines and a centralized PostgreSQL Data Warehouse to
-                  integrate multi-source financial data for advanced analytics and automated reporting.
+                  Built a partitioned PostgreSQL warehouse synced from production every 10 minutes, and a
+                  Metabase executive dashboard on it that replaced 10+ Excel files for 50+ executives; now
+                  extending it into a central multi-source warehouse.
                 </li>
                 <li>
                   Built n8n automation workflows that send daily end-of-day microfinance reports to management
@@ -1295,6 +1298,10 @@
               <li><img src="assets/icons/javascript.svg" alt="" />JavaScript</li>
               <li><span class="ph">API</span>REST APIs</li>
               <li><span class="ph">MW</span>Auth, Middleware, Sessions, Caching</li>
+              <li><span class="ph">DRF</span>Django REST Framework</li>
+              <li><span class="ph">CEL</span>Celery</li>
+              <li><span class="ph">NGX</span>nginx</li>
+              <li><span class="ph">PGB</span>PgBouncer</li>
             </ul>
           </div>
           <div class="stack-col reveal">
@@ -1316,6 +1323,7 @@
               <li><span class="ph">XL</span>OpenPyXL</li>
               <li><span class="ph">OK</span>Data Validation</li>
               <li><img src="assets/icons/googlesheets.svg" alt="" />Google Sheets API</li>
+              <li><span class="ph">XLS</span>Excel (Power Query, Pivot Tables, XLOOKUP)</li>
             </ul>
           </div>
           <div class="stack-col reveal">
@@ -1325,6 +1333,7 @@
               <li><span class="ph">LLM</span>LLM Integration</li>
               <li><span class="ph">fn</span>Agentic Workflows</li>
               <li><img src="assets/icons/n8n.svg" alt="" />n8n</li>
+              <li><span class="ph">CC</span>Claude Code (AI-assisted development)</li>
             </ul>
           </div>
           <div class="stack-col reveal">
@@ -1356,6 +1365,8 @@
               <li><img src="assets/icons/github.svg" alt="" />GitHub</li>
               <li><img src="assets/icons/postman.svg" alt="" />Postman</li>
               <li><img src="assets/icons/apachejmeter.svg" alt="" />JMeter</li>
+              <li><span class="ph">LNX</span>Linux</li>
+              <li><span class="ph">CI</span>GitHub Actions</li>
             </ul>
           </div>
           <div class="stack-col reveal">

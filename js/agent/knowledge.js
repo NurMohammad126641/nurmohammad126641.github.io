@@ -16,7 +16,7 @@ export const PROJECTS = {
     `<b>At TallyKhata</b>: end-to-end ETL from REST APIs and JSON into PostgreSQL for automated financial reporting.`,
   ],
   backend: [
-    `<b>Overdue Tracking Platform</b>: Django REST Framework, PostgreSQL, Celery and Redis, with secure authentication and REST APIs. Built solo; used by 4,000+ staff across 406 branches. Heavy pages went from 10+ seconds to under 1 second.`,
+    `<b>Overdue Tracking Platform</b>: Django REST Framework, PostgreSQL, Celery, Redis, nginx and PgBouncer, with secure authentication and REST APIs. Built solo, with Claude Code as an AI pair-programmer; it replaced SharePoint/Excel tracking for 4,000+ staff across 406 branches. Heavy pages went from 10+ seconds to under 1 second.`,
     `<b>payments-ops-monitoring</b> (open source): parallel read-only PostgreSQL metrics with baseline anomaly detection; CI tests it against a real PostgreSQL. ${link(LINKS.paymentsDemo, "Live demo")}`,
   ],
   bi: [
@@ -145,10 +145,10 @@ export const DETAILS = {
 export const EXPERIENCE = {
   padakhep: `<p><b>Data, BI &amp; Automation Engineer</b> at Padakhep Manabik Unnayan Kendra (microfinance NGO, Analytics &amp; Digital Transformation Team), Aug 2025 – present.</p>${list(
     [
-      "Built the Overdue Tracking Platform solo: Padakhep's official overdue system for 4,000+ users across 406 branches",
+      "Built the Overdue Tracking Platform solo, with Claude Code as an AI pair-programmer: Padakhep's official overdue system for 4,000+ users across 406 branches; heavy pages went from 10+ seconds to under 1 second",
       "Gemini-powered analytics chatbot: 30–40 managers a day get charts in 5–10 seconds",
       "730K-row branch report automated: 2–3 days → under 2 hours, now weekly",
-      "PostgreSQL data warehouse and n8n automation",
+      "Partitioned PostgreSQL warehouse synced every 10 minutes, with a Metabase dashboard for 50+ executives; plus n8n automation",
     ],
   )}`,
   tallykhata: `<p><b>Junior Engineer</b> (Jun 2024 – Jul 2025) and <b>Product Engineer Intern</b> (Mar – May 2024) at Progoti Systems Limited (TallyKhata), a fintech.</p>${list(
@@ -498,12 +498,12 @@ export const NOT_YET = [
 ];
 
 export const STACK = `<p>My main tools:</p>${list([
-  "<b>Programming &amp; Backend</b>: Python, SQL, Django, Django ORM, JavaScript, REST APIs, auth, middleware, sessions, caching",
+  "<b>Programming &amp; Backend</b>: Python, SQL, Django, Django ORM, JavaScript, REST APIs, auth, middleware, sessions, caching, Django REST Framework, Celery, nginx, PgBouncer",
   "<b>Databases &amp; Warehousing</b>: PostgreSQL, MySQL, BigQuery, Redis, query optimization, indexing, schema design",
-  "<b>Data Engineering &amp; ETL</b>: ETL/ELT pipelines, data warehousing, Pandas, OpenPyXL, data validation, Google Sheets API",
-  "<b>AI Integration &amp; Agents</b>: LLM APIs, LLM integration, agentic workflows, n8n",
+  "<b>Data Engineering &amp; ETL</b>: ETL/ELT pipelines, data warehousing, Pandas, OpenPyXL, data validation, Google Sheets API, Excel (Power Query, pivot tables, XLOOKUP)",
+  "<b>AI Integration &amp; Agents</b>: Gemini API, LLM integration, agentic workflows, n8n, Claude Code (AI-assisted development)",
   "<b>Automation &amp; Web Scraping</b>: Python automation, multithreading, Selenium, Playwright, BeautifulSoup, headless browsers",
   "<b>BI &amp; Visualization</b>: Power BI, Metabase, Looker Studio, Chart.js",
-  "<b>DevOps &amp; Testing</b>: Docker, Gunicorn, Git, GitHub, Postman, JMeter",
+  "<b>DevOps &amp; Testing</b>: Docker, Gunicorn, Git, GitHub, Postman, JMeter, Linux, GitHub Actions",
   "<b>Domain</b>: fintech, digital payments, microfinance MIS, fraud monitoring",
 ])}<p>Ask about any one of them and I'll show where I used it.</p>`;
