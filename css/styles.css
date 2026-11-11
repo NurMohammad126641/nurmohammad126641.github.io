@@ -1,9 +1,86 @@
+/* ---------- Fonts (self-hosted, SIL Open Font License) ---------- */
+@font-face {
+  font-family: "Plus Jakarta Sans";
+  font-style: normal;
+  font-weight: 200 800;
+  font-display: swap;
+  src: url("../assets/fonts/plus-jakarta-sans-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
+    U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Plus Jakarta Sans";
+  font-style: normal;
+  font-weight: 200 800;
+  font-display: swap;
+  src: url("../assets/fonts/plus-jakarta-sans-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329,
+    U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "JetBrains Mono";
+  font-style: normal;
+  font-weight: 100 800;
+  font-display: swap;
+  src: url("../assets/fonts/jetbrains-mono-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
+    U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "JetBrains Mono";
+  font-style: normal;
+  font-weight: 100 800;
+  font-display: swap;
+  src: url("../assets/fonts/jetbrains-mono-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329,
+    U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* Backup fonts sized to match Plus Jakarta Sans, so text doesn't reflow (and buttons don't jump)
+   when the real font arrives on a slow connection. Roboto on Android, Arial almost everywhere else. */
+@font-face {
+  font-family: "Jakarta Fallback Roboto";
+  font-weight: 100 550;
+  src: local("Roboto"), local("Roboto-Regular");
+  size-adjust: 105.24%;
+  ascent-override: 98.63%;
+  descent-override: 21.09%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: "Jakarta Fallback Roboto";
+  font-weight: 551 900;
+  src: local("Roboto Bold"), local("Roboto-Bold");
+  size-adjust: 106.9%;
+  ascent-override: 97.1%;
+  descent-override: 20.77%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: "Jakarta Fallback Arial";
+  font-weight: 100 550;
+  src: local("Arial"), local("ArialMT");
+  size-adjust: 104.45%;
+  ascent-override: 99.38%;
+  descent-override: 21.25%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: "Jakarta Fallback Arial";
+  font-weight: 551 900;
+  src: local("Arial Bold"), local("Arial-BoldMT");
+  size-adjust: 100.65%;
+  ascent-override: 103.13%;
+  descent-override: 22.06%;
+  line-gap-override: 0%;
+}
+
 /* ---------- Tokens ---------- */
 :root {
   --c1: #22d3ee;
   --c2: #818cf8;
   --c3: #a78bfa;
-  --font: "Plus Jakarta Sans", "Segoe UI", system-ui, sans-serif;
+  --font: "Plus Jakarta Sans", "Jakarta Fallback Roboto", "Jakarta Fallback Arial", "Segoe UI", system-ui,
+    sans-serif;
   --mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
   --radius: 18px;
   --wrap: 1160px;
@@ -2320,6 +2397,11 @@ kbd {
 .footer a:hover {
   color: var(--c1);
 }
+/* Light mode: the muted grey is a touch too faint for the small footer text. */
+[data-theme="light"] .footer,
+[data-theme="light"] .footer a {
+  color: #4f5c72;
+}
 
 /* ---------- Command palette ---------- */
 .palette {
@@ -2702,20 +2784,15 @@ summary {
     pointer-events: none;
   }
 
-  /* Chat bubble on phones: the floating launcher shows on the first screen; once the tab bar slides
-     in, its "Ask AI" button is the way in, so there's only ever one. The chat opens full screen. */
+  /* Chat bubble on phones: no floating launcher (it would cover the hero buttons). The hero's
+     "Ask my AI agent" button opens the chat on the first screen, and the tab bar's "Ask AI" after
+     that. The chat opens full screen and fits above the keyboard. */
   .chatdock {
     right: 14px;
     bottom: calc(16px + env(safe-area-inset-bottom));
   }
   .chat-launcher {
-    width: 58px;
-    height: 58px;
-  }
-  .js body.scrolled .chat-launcher:not([aria-expanded="true"]) {
-    opacity: 0;
-    transform: scale(0.6);
-    pointer-events: none;
+    display: none;
   }
   .js body.scrolled .chat-teaser {
     position: fixed;
@@ -2762,6 +2839,21 @@ summary {
   }
   body.chat-open {
     overflow: hidden;
+  }
+  /* The page stays put behind the chat (iPhone needs this; overflow alone isn't enough there). */
+  body.chat-locked {
+    position: fixed;
+    left: 0;
+    right: 0;
+    width: 100%;
+  }
+  /* The chat's height and top follow the space the keyboard leaves (set from JavaScript). */
+  .chat-panel {
+    bottom: auto;
+  }
+  /* While typing, every pixel goes to the conversation: hide the contact footer. */
+  .chat-panel.kb-open .chat-foot {
+    display: none;
   }
 
   /* Hero: photo, name, pitch and both buttons fit the first screen */

@@ -102,6 +102,50 @@ export function initChatBubble() {
     if (remember) storage.set(TEASER_KEY, "1");
   };
 
+  // --- Phones: keep the chat inside the part of the screen the keyboard leaves free ---
+  // Mobile browsers slide the keyboard over the page without shrinking it, so a full-height chat
+  // would hide its own text box. The visual viewport is the part still visible: size the chat to it.
+  const vv = window.visualViewport;
+  let lockedScroll = 0;
+  let fullHeight = 0; // the chat's height with no keyboard, to tell when the keyboard is up
+  const log = () => $("#agent-log");
+
+  function fitToViewport() {
+    if (panel.hidden || !phone.matches || !vv) return;
+    panel.style.height = `${Math.round(vv.height)}px`;
+    panel.style.top = `${Math.round(vv.offsetTop)}px`;
+    fullHeight = Math.max(fullHeight, vv.height);
+    const keyboardUp = vv.height < fullHeight * 0.8;
+    panel.classList.toggle("kb-open", keyboardUp);
+    if (keyboardUp) log().scrollTop = log().scrollHeight; // keep the latest message in view
+  }
+
+  function lockPage() {
+    // iPhone Safari ignores overflow:hidden on the page, so pin the page in place instead.
+    lockedScroll = scrollY;
+    document.body.style.top = `-${lockedScroll}px`;
+    document.body.classList.add("chat-locked");
+  }
+
+  function unlockPage() {
+    if (!document.body.classList.contains("chat-locked")) return;
+    document.body.classList.remove("chat-locked");
+    document.body.style.top = "";
+    scrollTo({ top: lockedScroll, behavior: "instant" });
+  }
+
+  if (vv) {
+    vv.addEventListener("resize", fitToViewport);
+    vv.addEventListener("scroll", fitToViewport);
+  }
+  phone.addEventListener?.("change", () => {
+    if (!phone.matches) {
+      panel.style.height = panel.style.top = "";
+      panel.classList.remove("kb-open");
+      unlockPage();
+    }
+  });
+
   async function open(question) {
     hideTeaser();
     const wasOpen = !panel.hidden;
@@ -110,6 +154,14 @@ export function initChatBubble() {
       panel.hidden = false;
       launcher.setAttribute("aria-expanded", "true");
       document.body.classList.add("chat-open");
+      if (phone.matches) {
+        // Like a messenger app: the phone's Back button closes the chat instead of leaving the site.
+        // (Pushed before the page is pinned, so going back restores the visitor's real scroll spot.)
+        if (!history.state?.chat) history.pushState({ chat: true }, "");
+        fullHeight = 0;
+        lockPage();
+        fitToViewport();
+      }
       requestAnimationFrame(() => panel.classList.add("in"));
     }
     await loadChat();
@@ -119,17 +171,24 @@ export function initChatBubble() {
     if (!phone.matches) $("#agent-q").focus({ preventScroll: true });
   }
 
-  function close() {
+  function close(fromBackButton = false) {
     if (panel.hidden) return;
+    if (!fromBackButton && history.state?.chat) history.back(); // drop the entry Back would have closed
     panel.classList.remove("in");
     launcher.setAttribute("aria-expanded", "false");
     document.body.classList.remove("chat-open");
     panel.hidden = true;
+    panel.style.height = panel.style.top = "";
+    panel.classList.remove("kb-open");
+    unlockPage();
     (lastFocus && document.contains(lastFocus) ? lastFocus : launcher).focus({ preventScroll: true });
   }
 
   launcher.addEventListener("click", () => (panel.hidden ? open() : close()));
-  closeBtn.addEventListener("click", close);
+  closeBtn.addEventListener("click", () => close());
+  addEventListener("popstate", () => {
+    if (!panel.hidden) close(true);
+  });
   addEventListener("keydown", (e) => {
     if (e.key === "Escape" && !panel.hidden) close();
   });

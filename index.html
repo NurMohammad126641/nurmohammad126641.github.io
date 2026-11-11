@@ -2,7 +2,10 @@
 <html lang="en" data-theme="dark">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content"
+    />
     <title>Nur Mohammad Siddiq · Data, BI & Automation Engineer</title>
     <meta
       name="description"
@@ -18,7 +21,7 @@
       content="I build data, backend & AI systems that run in production. Watch the demos, or ask my AI agent about my work."
     />
     <meta property="og:url" content="https://nurmohammad126641.github.io/" />
-    <meta property="og:image" content="https://nurmohammad126641.github.io/assets/img/og.png" />
+    <meta property="og:image" content="https://nurmohammad126641.github.io/assets/img/og.jpg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta
@@ -31,15 +34,17 @@
       name="twitter:description"
       content="I build data, backend & AI systems that run in production. Watch the demos, or ask my AI agent about my work."
     />
-    <meta name="twitter:image" content="https://nurmohammad126641.github.io/assets/img/og.png" />
+    <meta name="twitter:image" content="https://nurmohammad126641.github.io/assets/img/og.jpg" />
     <meta name="theme-color" content="#070d1a" media="(prefers-color-scheme: dark)" />
     <meta name="theme-color" content="#f6f8fc" media="(prefers-color-scheme: light)" />
     <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Fonts are hosted here (no extra domains to connect to), and the main one is fetched first. -->
     <link
-      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
-      rel="stylesheet"
+      rel="preload"
+      href="assets/fonts/plus-jakarta-sans-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
     />
     <link rel="stylesheet" href="css/styles.css" />
     <script>
@@ -176,7 +181,7 @@
         <div class="hero-photo">
           <div class="portrait">
             <img
-              src="assets/img/portrait.jpg"
+              src="assets/img/portrait.webp"
               alt="Nur Mohammad Siddiq"
               width="720"
               height="720"
@@ -299,7 +304,7 @@
           <div class="agent-cta">
             <div class="cta-person">
               <span class="cta-avatar"
-                ><img src="assets/img/portrait.jpg" alt="" width="56" height="56" loading="lazy" /><i
+                ><img src="assets/img/portrait-128.webp" alt="" width="56" height="56" loading="lazy" /><i
                   class="online"
                   aria-hidden="true"
                 ></i
@@ -541,7 +546,7 @@
         <article class="case reveal">
           <div class="case-media">
             <img
-              src="assets/img/ai-chatbot.jpg"
+              src="assets/img/ai-chatbot.webp"
               alt="AI Analytics Assistant answering 'I want to see last month's revenue report in a bar chart, day wise' with a function call get_revenue(period='last_month', group_by='day') and a daily bar chart (demo data)."
               loading="lazy"
               width="707"
@@ -600,7 +605,9 @@
         <article class="case case-flip reveal">
           <div class="case-media stack-media">
             <img
-              src="assets/img/presentation.jpg"
+              src="assets/img/presentation.webp"
+              srcset="assets/img/presentation-480.webp 480w, assets/img/presentation.webp 800w"
+              sizes="(max-width: 900px) calc(100vw - 48px), 560px"
               alt="Nur presenting the Overdue Tracking Platform on a large screen to head office executives."
               loading="lazy"
               width="800"
@@ -608,7 +615,7 @@
             />
             <img
               class="inset"
-              src="assets/img/field-rollout.jpg"
+              src="assets/img/field-rollout.webp"
               alt="Nur showing branch staff how to use the platform on a phone during the Karwan Bazar pilot."
               loading="lazy"
               width="800"
@@ -689,7 +696,7 @@
               loop
               playsinline
               preload="none"
-              poster="assets/video/od-tracker-loop.jpg"
+              poster="assets/video/od-tracker-loop.webp"
               aria-label="20-second silent highlight reel of OD Tracker 2.0: sign-in, approvals, the recovery action ladder, the mobile loan list, the reporting dashboard and the system architecture."
             >
               <source src="assets/video/od-tracker-loop.mp4" type="video/mp4" />
@@ -797,7 +804,7 @@
               data-yt
               data-title="OD Tracker 2.0 on mobile"
             >
-              <img src="assets/img/demo-mobile.jpg" alt="" loading="lazy" width="640" height="360" />
+              <img src="assets/img/demo-mobile.webp" alt="" loading="lazy" width="640" height="360" />
               <span><b>On mobile</b> <small>2:38</small></span>
             </a>
             <a
@@ -806,7 +813,7 @@
               data-yt
               data-title="OD Tracker 2.0: Reporting Dashboard"
             >
-              <img src="assets/img/demo-reporting.jpg" alt="" loading="lazy" width="640" height="360" />
+              <img src="assets/img/demo-reporting.webp" alt="" loading="lazy" width="640" height="360" />
               <span><b>Reporting dashboard</b> <small>2:37</small></span>
             </a>
             <a
@@ -815,7 +822,7 @@
               data-yt
               data-title="OD Tracker 2.0: OD Monitor"
             >
-              <img src="assets/img/demo-monitor.jpg" alt="" loading="lazy" width="640" height="360" />
+              <img src="assets/img/demo-monitor.webp" alt="" loading="lazy" width="640" height="360" />
               <span><b>OD Monitor</b> <small>1:40</small></span>
             </a>
           </div>
@@ -897,7 +904,7 @@
         <article class="case case-flip reveal">
           <div class="case-media fit">
             <img
-              src="assets/img/metabase-dashboard.jpg"
+              src="assets/img/metabase-dashboard.webp"
               alt="Metabase 'Microfinance operations' dashboard with members by loan status, monthly collection, target progress, disbursements over time, a division map and active loans by zone (demo data)."
               loading="lazy"
               width="800"
@@ -957,7 +964,12 @@
               <span class="live-tag"><i></i>Live · click to explore</span>
             </span>
             <img
-              src="assets/img/looker-payments-fraud.jpg"
+              src="assets/img/looker-payments-fraud.webp"
+              srcset="
+                assets/img/looker-payments-fraud-800.webp  800w,
+                assets/img/looker-payments-fraud.webp     1600w
+              "
+              sizes="(max-width: 900px) calc(100vw - 48px), 1100px"
               alt="Looker Studio 'Payments Pulse' page: six KPI cards, daily transaction value by provider as stacked bars, failure rate per provider against a 3% target with Rocket above it, and the top reasons payments fail (demo data)."
               loading="lazy"
               width="1600"
@@ -1021,7 +1033,7 @@
           </div>
         </article>
 
-        <div class="mini-grid">
+        <div class="mini-grid" role="region" aria-label="More projects" tabindex="0">
           <article class="mini reveal">
             <p class="case-kicker"><span class="k-data">Data</span> In progress</p>
             <h3>Central PostgreSQL Data Warehouse</h3>
@@ -1236,9 +1248,9 @@
               </ul>
             </li>
           </ol>
-          <aside class="about-card reveal">
+          <div class="about-card reveal">
             <img
-              src="assets/img/portrait.jpg"
+              src="assets/img/portrait.webp"
               alt="Portrait of Nur Mohammad Siddiq"
               width="720"
               height="720"
@@ -1263,7 +1275,7 @@
                 <dd>Rhythm Blood Bank, Dhaka</dd>
               </div>
             </dl>
-          </aside>
+          </div>
         </div>
       </section>
 
@@ -1492,9 +1504,9 @@
         aria-label="Chat with Nur's AI assistant"
         hidden
       >
-        <header class="chat-head">
+        <div class="chat-head">
           <span class="chat-avatar"
-            ><img src="assets/img/portrait.jpg" alt="" width="40" height="40" loading="lazy" /><i
+            ><img src="assets/img/portrait-128.webp" alt="" width="40" height="40" loading="lazy" /><i
               class="online"
               aria-hidden="true"
             ></i
@@ -1506,7 +1518,7 @@
           <button type="button" class="chat-close" id="chat-close" aria-label="Close chat">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" /></svg>
           </button>
-        </header>
+        </div>
         <div class="term-log chat-log" id="agent-log" aria-live="polite"></div>
         <div class="chips" id="agent-chips" role="group" aria-label="Suggested questions"></div>
         <form class="term-input chat-input" id="agent-form" autocomplete="off">
@@ -1524,14 +1536,14 @@
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" /></svg>
           </button>
         </form>
-        <footer class="chat-foot">
+        <div class="chat-foot">
           <span>Talk to Nur directly:</span>
           <a href="mailto:rabbins.eng@gmail.com">Email</a>
           <a href="https://www.linkedin.com/in/nur-mohammad-siddiq-9a73931b6" target="_blank" rel="noopener"
             >LinkedIn</a
           >
           <a href="assets/Nur-Mohammad-Siddiq-CV.pdf" download="Nur Mohammad Siddiq.pdf">CV</a>
-        </footer>
+        </div>
       </section>
 
       <button
@@ -1542,7 +1554,7 @@
         aria-expanded="false"
         aria-label="Chat with Nur's AI assistant"
       >
-        <img src="assets/img/portrait.jpg" alt="" width="60" height="60" />
+        <img src="assets/img/portrait-128.webp" alt="" width="60" height="60" />
         <i class="online" aria-hidden="true"></i>
         <svg class="launcher-x" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" /></svg>
       </button>
