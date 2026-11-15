@@ -93,7 +93,7 @@ describe("live dashboard", () => {
 
   it("lets the model repeat the dashboard link and its numbers", () => {
     const source = htmlToText(TOOLS.get_projects({ name: "payments" }));
-    const answer = `I rebuilt my TallyKhata KPI and fraud dashboards in Looker Studio: [open it](${LOOKER}). Visibility improved by 80%, and the demo covers 60 days.`;
+    const answer = `I rebuilt my TallyKhata KPI and fraud dashboards in Looker Studio: [open it](${LOOKER}). Visibility improved by 80%, and the demo covers 120 days.`;
     assert.deepEqual(findUnsupportedClaims(answer, [source]), []);
   });
 });

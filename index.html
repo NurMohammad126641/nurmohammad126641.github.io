@@ -977,7 +977,7 @@
                 assets/img/looker-payments-fraud.webp     1600w
               "
               sizes="(max-width: 900px) calc(100vw - 48px), 1100px"
-              alt="Looker Studio 'Payments Pulse' page: six KPI cards, daily transaction value by provider as stacked bars, failure rate per provider against a 3% target with Rocket above it, and the top reasons payments fail (demo data)."
+              alt="Looker Studio 'Command Center' page in a dark theme: six KPI tiles, rail health against each rail's own SLO, a division map, an ops and regulatory log, an hourly incident radar and the open review queue (demo data)."
               loading="lazy"
               width="1600"
               height="716"
@@ -1018,14 +1018,19 @@
                   <div>
                     <dt>What you can explore</dt>
                     <dd>
-                      <b>Payments Pulse</b>: volume, success rate, why payments fail, and an hourly radar that
-                      flags outages. <b>Fraud Radar</b>: five detection rules, how many alerts each one
-                      raises, how many turn out real, and how fast they get reviewed.
+                      Six pages. <b>Command Center</b>: the six numbers leadership checks first.
+                      <b>Payments Pulse</b>: which rail is failing, and is it us or the provider.
+                      <b>Fraud Radar</b>: loss, rules and the review queue. <b>Rule Lab</b>: move the
+                      threshold, see the trade-off. <b>Money &amp; Merchants</b>: revenue, safeguarding,
+                      cohorts. <b>Definitions</b>: every formula, plus 15 data checks.
                     </dd>
                   </div>
                   <div>
                     <dt>The data</dt>
-                    <dd>Synthetic: 60 days, 5 providers, generated with Python. No real customer data.</dd>
+                    <dd>
+                      Synthetic: 120 days, 5 payment rails. Python simulates it, PostgreSQL and SQL shape it,
+                      15 checks run before it ships. No real customer data.
+                    </dd>
                   </div>
                 </dl>
               </details>
@@ -1033,6 +1038,7 @@
                 <li>Looker Studio</li>
                 <li>Python</li>
                 <li>SQL</li>
+                <li>PostgreSQL</li>
                 <li>Google Sheets API</li>
                 <li>Fraud rules</li>
               </ul>

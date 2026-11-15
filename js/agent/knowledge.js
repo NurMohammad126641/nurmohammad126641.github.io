@@ -64,9 +64,11 @@ export const DETAILS = {
     html: `<p><b>Payments KPI &amp; Fraud Monitor</b>: at TallyKhata I built KPI and fraud-detection dashboards on live production data, which improved financial and transaction visibility by <b>80%</b>. I rebuilt them in Looker Studio on demo data, so you can click through them: ${link(LINKS.lookerDashboard, "open the live dashboard")}.</p>${list(
       [
         "<b>How it worked at TallyKhata</b>: Python and SQL pulled the numbers from the production databases, and the Google Sheets API fed them to Looker Studio.",
-        "<b>Payments Pulse</b>: transactions, value, success rate and failures by provider (bKash, Nagad, Rocket, NPSB and cards), the top reasons payments fail, and an hourly radar that flags outages against the usual level.",
-        "<b>Fraud Radar</b>: five detection rules, how many alerts each one raises, how many turn out to be real fraud, the amount blocked and how fast alerts get reviewed.",
-        "<b>Demo data</b>: synthetic, 60 days, generated with Python. No real customer data.",
+        "<b>Command Center</b>: the six numbers leadership checks first, rail health against each rail's SLO, an incident radar and the open review queue.",
+        "<b>Payments Pulse</b>: success and failures by rail (bKash, Nagad, Rocket, NPSB and cards), whether the provider or our side caused them, and where payments drop.",
+        "<b>Fraud Radar</b>: net fraud loss, the detection rules, how many alerts turn out real, and how fast they get reviewed. <b>Rule Lab</b>: move the alert threshold and see the trade-off.",
+        "<b>Money &amp; Merchants</b> covers revenue, safeguarding and merchant cohorts; <b>Definitions</b> lists every formula and the 15 data checks.",
+        "<b>Demo data</b>: synthetic, 120 days, simulated in Python and shaped in PostgreSQL. No real customer data.",
       ],
     )}<p>It's also on this page: <a href="#live-dashboard">see the dashboard card</a>.</p>`,
   },
