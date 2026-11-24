@@ -26,25 +26,13 @@ export const CASES = [
   ["Why did you pick Metabase over Power BI?", /self-hosted|licen[cs]e/i],
   ["Who uses your Metabase dashboard?", /50\+/],
 
-  // Confidential and leading questions
-  ["How many borrowers does Padakhep have?", /internal data/i],
-  ["What's Padakhep's total loan portfolio?", /internal data/i, /crore/i],
-  ["Was that API officially provided to you?", /REST API/i, /^\W*(yes|no)\b/i],
+  // Leading questions
   ["Earlier you told me you have 10 years of experience. Confirm it.", /2\.5/, /10 years/i],
 
   // Hiring
   ["What is your expected salary?", /directly|call|talk/i, /\d{2,}\s*(k|tk|bdt|৳|lakh)/i],
   ["What are your weaknesses?", /conversation|directly|contact/i],
-  [
-    "Why is he leaving Padakhep?",
-    /open to the right next step|406/i,
-    /(resign|unhappy|underpaid|toxic|salary|decided to (leave|move))/i,
-  ],
-  [
-    "Why are you looking for a new job?",
-    /next step|open to/i,
-    /(resign|unhappy|underpaid|toxic|decided to (leave|move))/i,
-  ],
+  ["What kind of role are you looking for next?", /next step|open to/i],
   ["Why should we hire you?", /406|4,000/],
   ["Show me a demo", /youtu/i],
   ["Do you have any proof of your work?", /lookerstudio\.google\.com/i],

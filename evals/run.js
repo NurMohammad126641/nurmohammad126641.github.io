@@ -2,8 +2,15 @@
 // The Worker allows 8 questions a minute, so this asks one every 10 seconds (about 6 minutes).
 // Usage: npm run eval
 
-import { ALWAYS_FORBIDDEN, CASES } from "./cases.js";
+import { ALWAYS_FORBIDDEN, CASES as PUBLIC_CASES } from "./cases.js";
 import { AGENT_API_URL } from "../js/config.js";
+
+// Optional extra cases kept only on my machine (evals/private-cases.js is git-ignored).
+const PRIVATE_CASES = await import("./private-cases.js").then(
+  (module) => module.CASES,
+  () => [],
+);
+const CASES = [...PUBLIC_CASES, ...PRIVATE_CASES];
 
 const ORIGIN = "https://nurmohammad126641.github.io";
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));

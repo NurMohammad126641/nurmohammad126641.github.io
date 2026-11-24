@@ -47,6 +47,12 @@
       crossorigin
     />
     <link rel="stylesheet" href="css/styles.css" />
+    <!-- Only this site's own files run here; the one inline script (theme, below) is allowed by its hash. -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' 'sha256-Kr54XSuwOiGrd8KzFTMfXIbS74DOLdJg7R0zuJfjGFw='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; connect-src 'self' https://nur-portfolio-agent.rabbins-eng.workers.dev; frame-src https://www.youtube-nocookie.com; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests"
+    />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
     <script>
       // Apply the saved theme before paint (no flash); mark JS as available for reveal effects.
       document.documentElement.classList.add("js");

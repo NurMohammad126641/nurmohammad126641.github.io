@@ -12,7 +12,7 @@ export const TOOL_DECLARATIONS = [
     type: "function",
     name: "get_profile",
     description:
-      "Nur's profile. 'about' is a short summary, 'pitch' gives three reasons to work with Nur, 'stack' lists all skills by group, 'roles' says what roles and projects Nur is open to, 'build' says how Nur works: which projects were built solo, what the ICT team did, and how Nur uses AI coding agents. 'move' is the only approved answer to why Nur is looking for a new role or would leave Padakhep or the current job.",
+      "Nur's profile. 'about' is a short summary, 'pitch' gives three reasons to work with Nur, 'stack' lists all skills by group, 'roles' says what roles and projects Nur is open to, 'build' says how Nur works: which projects were built solo, what the ICT team did, and how Nur uses AI coding agents. 'move' says what Nur is looking for next.",
     parameters: {
       type: "object",
       properties: {
@@ -74,13 +74,30 @@ export const TOOL_DECLARATIONS = [
   },
 ];
 
+/**
+ * The skill name as it may be echoed back: letters and simple tech punctuation only. No links,
+ * no multi-digit numbers, no symbols, so an echoed name can never "support" a link or a figure
+ * in the fact-check.
+ */
+export function cleanSkillName(name) {
+  return (
+    String(name)
+      .replace(/[^\p{L}\d .+#-]/gu, " ")
+      .replace(/\d{2,}/g, " ")
+      .replace(/\s+/g, " ")
+      .trim()
+      .slice(0, 30)
+      .trim() || "that"
+  );
+}
+
 /** Find a skill in the profile: real evidence, an honest "not yet", or just the name if it's unknown. */
 export function lookupSkill(name) {
   const text = " " + String(name).toLowerCase().trim() + " ";
   const known = SKILLS.find((skill) => skill.match.test(text));
   if (known) return known;
   const notYet = NOT_YET.find((entry) => entry.match.test(text));
-  const title = String(name).trim().slice(0, 40) || "that";
+  const title = cleanSkillName(name);
   return notYet ? { name: title, answer: notYet.answer } : { name: title };
 }
 
@@ -95,11 +112,12 @@ export function toToolCall(name, args = {}) {
   switch (name) {
     case "get_profile":
       return { tool: name, arg: args.section === "about" ? null : (args.section ?? null), argText };
+    // Own keys only, so names like "constructor" can't reach built-in object properties.
     case "get_projects":
-      if (DETAILS[args.project]) return { tool: name, arg: { name: args.project }, argText };
-      return { tool: name, arg: PROJECTS[args.domain] ? args.domain : "featured", argText };
+      if (Object.hasOwn(DETAILS, args.project)) return { tool: name, arg: { name: args.project }, argText };
+      return { tool: name, arg: Object.hasOwn(PROJECTS, args.domain) ? args.domain : "featured", argText };
     case "get_experience":
-      return { tool: name, arg: EXPERIENCE[args.company] ? args.company : "all", argText };
+      return { tool: name, arg: Object.hasOwn(EXPERIENCE, args.company) ? args.company : "all", argText };
     case "find_evidence":
       return { tool: name, arg: lookupSkill(args.skill ?? ""), argText };
     case "get_education":

@@ -55,11 +55,12 @@ describe("renderMarkdown", () => {
     assert.equal(renderMarkdown("<img src=x onerror=alert(1)>"), "<p>&lt;img src=x onerror=alert(1)&gt;</p>");
   });
 
-  it("keeps links only to known hosts", () => {
+  it("keeps links only to my own pages and profiles", () => {
     assert.match(
-      renderMarkdown("[post](https://www.linkedin.com/posts/x)"),
+      renderMarkdown("[post](https://www.linkedin.com/posts/nur-mohammad-siddiq-9a73931b6_x)"),
       /<a href="https:\/\/www\.linkedin\.com/,
     );
+    assert.equal(renderMarkdown("[post](https://www.linkedin.com/posts/x)"), "<p>post</p>");
     assert.match(
       renderMarkdown("[full tour](https://youtu.be/76sRtxefyfA)"),
       /<a href="https:\/\/youtu\.be\//,

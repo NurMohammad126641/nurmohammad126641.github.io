@@ -6,11 +6,19 @@
     <title>Page not found · Nur Mohammad Siddiq</title>
     <meta name="robots" content="noindex" />
     <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&display=swap"
-      rel="stylesheet"
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'none'; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'"
     />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
     <style>
+      /* Same self-hosted font as the main site: no requests to other domains. */
+      @font-face {
+        font-family: "Plus Jakarta Sans";
+        font-weight: 200 800;
+        font-display: swap;
+        src: url("/assets/fonts/plus-jakarta-sans-latin.woff2") format("woff2");
+      }
       body {
         margin: 0;
         min-height: 100vh;

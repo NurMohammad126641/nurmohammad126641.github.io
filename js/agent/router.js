@@ -213,8 +213,8 @@ export function route(question, followUp = null) {
       note: "Not something I share",
     };
   }
-  // "Why are you leaving / looking?" about the current job gets the one approved answer.
-  // Earlier jobs (TallyKhata) and other personal questions still go to Nur in person.
+  // Career-move questions get the "move" answer (what I'm looking for next).
+  // Earlier jobs and other personal questions go to Nur in person.
   if (
     !has(/\b(tallykhata|progoti)\b/) &&
     (has(

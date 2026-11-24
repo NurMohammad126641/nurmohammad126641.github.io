@@ -2,3 +2,7 @@ node_modules/
 .DS_Store
 Thumbs.db
 .wrangler/
+
+# Kept on this machine only
+evals/private-cases.js
+tests/private.test.js

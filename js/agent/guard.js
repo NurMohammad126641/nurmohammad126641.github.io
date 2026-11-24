@@ -82,8 +82,8 @@ const WORK_CLAIMS = [
   /\bteam of \d+/i,
 ];
 
-// Never in an answer, whatever the sources say. Employer-specific names come in at runtime
-// (the Worker's PRIVATE_TERMS secret), so they aren't published in this repo.
+// Never in an answer, whatever the sources say. More blocked names come in at runtime
+// (the Worker's PRIVATE_TERMS secret).
 const NEVER = [/\bcredentials?\b/i, /\bpasswords?\b/i, /\bapi[- ]?keys?\b/i];
 
 const EMAIL_PATTERN = /[\w.+-]+@[\w-]+(\.[\w-]+)+/g;
