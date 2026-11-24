@@ -208,7 +208,7 @@ export function initChat() {
 
   addMessage(
     "bot",
-    `<div class="answer"><p>Hi 👋 I'm Nur's AI assistant. I answer as Nur, using only real facts from Nur's work. Ask me anything, or tap a question below.</p></div>`,
+    `<div class="answer"><p>Hi, I'm Nur's AI assistant. I answer as Nur, using only real facts from Nur's work. Ask me anything, or tap a question below.</p></div>`,
   );
 
   return { ask, setSuggestions, isBusy: () => busy };
